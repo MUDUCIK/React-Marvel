@@ -1,11 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import React, {StrictMode} from 'react'
+import {render} from 'react-dom'
+import {BrowserRouter} from 'react-router-dom'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import App from './components/App'
+
+import './styles/css/bootstrap-reboot.min.css'
+import './styles/css/fonts.css'
+import {GlobalStyles} from "./styles/styled-components/GlobalStyles"
+
+render(
+    <StrictMode>
+        <BrowserRouter>
+            <GlobalStyles/>
+            <App/>
+        </BrowserRouter>
+    </StrictMode>,
+    document.getElementById('marvel')
 )
