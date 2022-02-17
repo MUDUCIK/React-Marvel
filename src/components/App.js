@@ -1,6 +1,7 @@
-import {Routes, Route} from "react-router-dom"
+import {Routes, Route, Navigate} from "react-router-dom"
 
 import Header from "./Header/Header"
+import Characters from "../pages/Characters/Characters"
 
 function App() {
     return (
@@ -8,7 +9,8 @@ function App() {
             <div className="container">
                 <Header/>
                 <Routes>
-                    <Route path="characters" element={<div>awdawd</div>}/>
+                    <Route path="/" element={<Navigate to="characters"/>}/>
+                    <Route path="characters" element={<Characters/>}/>
                     <Route path="comics" element={<div>awdawdawdawdawd</div>}/>
                 </Routes>
             </div>

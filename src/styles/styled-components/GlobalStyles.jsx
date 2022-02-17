@@ -3,8 +3,10 @@ import {createGlobalStyle} from "styled-components"
 export const GlobalStyles = createGlobalStyle`
   :root {
     --main-red-color: #9F0013;
+    --main-hover-red: #950018;
     --main-bg-color: #232222;
     --main-bg-grey: #5C5C5C;
+    --main-hover-grey: #4e4e4e;
     --main-text-black: #000000;
     --main-text-white: #ffffff;
   }
@@ -12,7 +14,7 @@ export const GlobalStyles = createGlobalStyle`
   html {
     font-size: 16px;
   }
-  
+
   body {
     font-family: 'Roboto Condensed', Roboto, serif;
   }
@@ -20,7 +22,7 @@ export const GlobalStyles = createGlobalStyle`
   h1, h2, h3, h4, h5, h6, p {
     margin: 0;
     padding: 0;
-    
+
     line-height: 1;
   }
 
