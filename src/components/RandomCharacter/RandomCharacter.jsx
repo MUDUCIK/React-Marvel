@@ -38,6 +38,7 @@ const Wrapper = styled.div`
       div {
         display: flex;
         justify-content: space-between;
+        gap: 0 10px;
 
         max-width: 250px;
 
@@ -143,9 +144,9 @@ const Wrapper = styled.div`
 
       img {
         left: 70%;
-        top: 35%;
+        top: 25%;
       }
-      
+
       h3 {
         margin: 0;
         max-width: 100%;

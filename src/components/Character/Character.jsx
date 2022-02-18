@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import analyze from "rgbaster"
+import {useState} from "react"
 
 const CharacterStyle = styled.button`
   display: flex;
@@ -23,7 +25,13 @@ const CharacterStyle = styled.button`
   &:focus {
     transform: translateY(-10px);
 
-    box-shadow: 0 5px 20px var(--main-hover-red);
+    box-shadow: 0 5px 20px 3px ${({shadowColor}) => shadowColor};
+  }
+
+  &:hover {
+    transform: translateY(-10px);
+
+    box-shadow: 0 5px 20px 2px ${({shadowColor}) => shadowColor};
   }
 
   img {
@@ -33,26 +41,48 @@ const CharacterStyle = styled.button`
     pointer-events: none;
   }
 
-  span {
-    margin-left: .9375em;
+  div {
+    margin: 0 .9375em 0 .9375em;
 
     text-transform: uppercase;
+    text-align: left;
+    line-height: 1.2;
   }
 `
 
-const Character = ({id, img, width, height, name, shadowColor, ...props}) => {
+const Character = ({id, img, name, ...props}) => {
+    const [state, setState] = useState(() => '');
+
+    const calculateColor = async () => {
+        const color = await analyze(img, {
+            ignore: [
+                'rgb(0,0,0)',
+                'rgb(255,255,255)',
+                'rgb(254,254,254)',
+                'rgb(1,1,1)'
+            ],
+            scale: 0.6
+        })
+
+        setState(() => color[0].color)
+    }
+
+    calculateColor()
 
     return (
-        <CharacterStyle
-            key={id}
-            onClick={() => alert('HAHLHLHA')}
-            shadowColor={shadowColor}>
-            <img
-                src={img}
-                width={width}
-                height={height}/>
-            <span>{name}</span>
-        </CharacterStyle>
+        <a href="#characterInfo">
+            <CharacterStyle
+                key={id}
+                shadowColor={state}>
+                <img
+                    src={img}
+                    width={200}
+                    height={200}/>
+                <div>
+                    <span>{name}</span>
+                </div>
+            </CharacterStyle>
+        </a>
     )
 }
 

@@ -9,7 +9,7 @@ const ButtonStyle = styled.button`
   border: 5px solid transparent;
 
   width: 100%;
-  max-width: 6.875em;
+  max-width: 10.625em;
 
   padding: .3125em 0;
 
@@ -17,7 +17,7 @@ const ButtonStyle = styled.button`
   color: var(--main-text-white);
 
   background-color: ${({grey}) => grey ? 'var(--main-bg-grey)' : 'var(--main-red-color)'};
-  clip-path: polygon(15% 0, 100% 0, 100% 70%, 85% 100%, 0 100%, 0% 35%);
+  clip-path: polygon(12% 0,100% 0,100% 60%,88% 100%,0 100%,0% 37%);
   transition: background-color .3s ease;
 
   &:hover {
@@ -30,6 +30,7 @@ const ButtonStyle = styled.button`
   }
 `
 
-const Button = ({text, ...props}) => <ButtonStyle {...props}>{text}</ButtonStyle>
+const ButtonBigger = ({text, ...props}) => <ButtonStyle {...props}>{text}</ButtonStyle>
 
-export default Button
+
+export default ButtonBigger

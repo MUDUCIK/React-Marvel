@@ -46,7 +46,7 @@ export const GlobalStyles = createGlobalStyle`
 
   .container {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1140px;
 
     margin: 0 auto;
     padding: 0 .9375rem;
