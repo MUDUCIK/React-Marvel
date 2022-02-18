@@ -8,7 +8,11 @@ import CharacterInfo from "../../components/CharacterInfo/CharacterInfo"
 import ButtonBigger from '../../components/ButtonBigger/ButtonBigger'
 
 const CharactersPageStyle = styled.div`
+  position: relative;
+
   padding: 0 0 45px 0;
+  
+  min-height: 1450px;
 
   .More {
     margin: 0 auto;
@@ -19,7 +23,7 @@ const CharactersSection = styled.section`
   display: flex;
 
   margin: clamp(1.25rem, 5vh, 3.125rem) 0 clamp(1.25rem, 5vh, 2.8125rem);
-
+  
   @media ${device.laptop} {
     flex-direction: column-reverse;
   }
@@ -36,6 +40,14 @@ const CharacterInfoWrapper = styled.div`
 
 `
 
+const CharacterSectionDecoration = styled.img`
+  position: absolute;
+  z-index: -1;
+  
+  right: -15%;
+  bottom: -10%;
+`
+
 const Characters = ({characters}) => {
     const {img, name} = characters[0]
 
@@ -50,6 +62,7 @@ const Characters = ({characters}) => {
             </CharacterInfoWrapper>
         </CharactersSection>
         <ButtonBigger text="Load More" className="More"/>
+        <CharacterSectionDecoration src={require('../../img/bg_asset.png')}/>
     </CharactersPageStyle>)
 }
 

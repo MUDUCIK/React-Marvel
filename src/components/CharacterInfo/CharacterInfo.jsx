@@ -6,6 +6,7 @@ const CharacterInfoWrapper = styled.div`
   padding: 1.5625rem;
 
   box-shadow: 0 0 20px rgba(0, 0, 0, .25);
+  background: #fff;
 `
 
 const CharacterHeader = styled.div`
