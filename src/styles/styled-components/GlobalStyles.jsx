@@ -1,5 +1,7 @@
 import {createGlobalStyle} from "styled-components"
 
+import {device} from "./queries"
+
 export const GlobalStyles = createGlobalStyle`
   :root {
     --main-red-color: #9F0013;
@@ -19,7 +21,7 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Roboto Condensed', Roboto, serif;
   }
 
-  h1, h2, h3, h4, h5, h6, p {
+  h1, h2, h3, h4, h5, h6, p, span {
     margin: 0;
     padding: 0;
 
@@ -52,6 +54,12 @@ export const GlobalStyles = createGlobalStyle`
 
   .active-link {
     color: var(--main-red-color);
+  }
+
+  @media ${device.tablet} {
+    html {
+      font-size: 14px;
+    }
   }
 `
 

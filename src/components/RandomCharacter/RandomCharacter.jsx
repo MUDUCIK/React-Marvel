@@ -32,7 +32,7 @@ const Wrapper = styled.div`
       p {
         margin-top: 10px;
         line-height: 1.3;
-        font-size: .875rem;
+        font-size: 14px;
       }
 
       div {
@@ -47,29 +47,43 @@ const Wrapper = styled.div`
     }
 
     &:last-child {
-      flex-direction: column;
-      align-items: stretch;
+      position: relative;
 
       padding-right: 30px;
 
-      background: var(--main-bg-color) url(${require('../../img/Decoration.png')}) 110% 80% / 200px no-repeat;
+      flex-direction: column;
+      align-items: stretch;
+
+      background-color: var(--main-bg-color);
 
       color: var(--main-text-white);
 
       font-size: 1.5rem;
 
+      img {
+        position: absolute;
+        left: 70%;
+        top: 25%;
+        z-index: 1;
+
+        pointer-events: none;
+      }
+
       h3 {
         line-height: 1.2;
         max-width: 85%;
+        z-index: 2;
       }
 
       p {
         margin-top: 10%;
         padding-bottom: 10px;
+        z-index: 2;
       }
 
       button {
         margin-top: auto;
+        z-index: 2;
       }
     }
   }
@@ -83,6 +97,11 @@ const Wrapper = styled.div`
       &:last-child {
         background-position-y: 80%;
         background-position-x: 105%;
+
+        img {
+          left: 80%;
+          top: 10%;
+        }
 
         p {
           margin-top: 5%;
@@ -121,16 +140,21 @@ const Wrapper = styled.div`
   @media ${device.customM} {
     .item:last-child {
       text-align: center;
+
+      img {
+        left: 70%;
+        top: 35%;
+      }
       
       h3 {
         margin: 0;
         max-width: 100%;
       }
-      
+
       button {
         margin: 0 auto;
       }
-      
+
       background: var(--main-bg-color);
     }
   }
@@ -155,6 +179,7 @@ const RandomCharacter = () => {
                 </div>
             </div>
             <div className="item">
+                <img src={require('../../img/Decoration.png')} width={202} height={190}/>
                 <h3>Random character for today!
                     Do you want to get to know him better?</h3>
                 <p>Or choose another one</p>

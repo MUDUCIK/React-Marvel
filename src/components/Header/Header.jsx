@@ -30,6 +30,10 @@ const HeaderStyle = styled.header`
 
       a {
         padding: .5em;
+        
+        &:focus {
+          color: var(--main-red-color);
+        }
 
         &:last-child {
           padding-right: 0;
