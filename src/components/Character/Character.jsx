@@ -70,7 +70,7 @@ const Character = ({id, img, name, ...props}) => {
     calculateColor()
 
     return (
-        <a href="#characterInfo">
+        // <a href="#characterInfo">
             <CharacterStyle
                 key={id}
                 shadowColor={state}>
@@ -82,7 +82,7 @@ const Character = ({id, img, name, ...props}) => {
                     <span>{name}</span>
                 </div>
             </CharacterStyle>
-        </a>
+        // </a>
     )
 }
 

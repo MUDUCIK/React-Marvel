@@ -1,6 +1,6 @@
-import {createGlobalStyle} from "styled-components"
+import { createGlobalStyle } from "styled-components"
 
-import {device} from "./queries"
+import { device } from "./queries"
 
 export const GlobalStyles = createGlobalStyle`
   :root {
@@ -62,4 +62,3 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 `
-
