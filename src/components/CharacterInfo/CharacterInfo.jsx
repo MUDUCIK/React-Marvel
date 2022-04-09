@@ -1,156 +1,207 @@
-import styled from "styled-components"
+import styled from 'styled-components'
+import { Component } from 'react'
+import { MarvelService } from '../../services/MarvelService'
 
-import Button from "../Button/Button"
+import Button from '../Button/Button'
+import Spinner from '../Spinner/Spinner'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import Skeleton from '../Skeleton/Skeleton'
 
 const CharacterInfoWrapper = styled.div`
-  padding: 1.5625rem;
+	padding: 1.5625rem;
 
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  background: #fff;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+	background: #fff;
 `
 
 const CharacterHeader = styled.div`
-  display: flex;
+	display: flex;
 
-  img {
-    max-width: 100%;
-    height: 150px;
-  }
+	img {
+		max-width: 100%;
+		height: 150px;
+	}
 
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+	div {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 
-    width: 100%;
+		width: 100%;
 
-    margin-left: 1.5625rem;
+		margin-left: 1.5625rem;
 
-    font-size: 1.5rem;
+		font-size: 1.5rem;
 
-    span {
-      font-weight: 700;
-      text-transform: uppercase;
-    }
+		span {
+			font-weight: 700;
+			text-transform: uppercase;
+		}
 
-    div {
-      margin: 0;
+		div {
+			margin: 0;
 
-      min-width: 100px;
+			min-width: 100px;
 
-      gap: 0.625em 0;
-    }
-  }
+			gap: 0.625em 0;
+		}
+	}
 `
 
 const CharacterBody = styled.div`
-  margin-top: 0.9375rem;
+	margin-top: 0.9375rem;
 
-  p {
-    font-size: 14px;
-    line-height: 1.2;
-  }
+	p {
+		font-size: 14px;
+		line-height: 1.2;
+	}
 
-  span {
-    display: block;
+	span {
+		display: block;
 
-    margin-top: 0.625em;
+		margin-top: 0.625em;
 
-    font-weight: 700;
-    font-size: 1.125rem;
-  }
+		font-weight: 700;
+		font-size: 1.125rem;
+	}
 
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem 0;
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem 0;
 
-    list-style-type: none;
-    padding: 0;
+		list-style-type: none;
+		padding: 0;
 
-    margin-top: 0.625rem;
+		margin-top: 0.625rem;
 
-    li {
-      display: flex;
+		li {
+			display: flex;
 
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+			box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-      a {
-        width: 100%;
+			a {
+				width: 100%;
 
-        padding: 5px 10px;
+				padding: 5px 10px;
 
-        &:focus {
-          outline: 0.25rem solid var(--main-hover-red);
-        }
-      }
-    }
-  }
+				&:focus {
+					outline: 0.25rem solid var(--main-hover-red);
+				}
+			}
+		}
+	}
 `
 
-const CharacterInfo = ({ img, name }) => {
-  return (
-    <CharacterInfoWrapper>
-      <CharacterHeader>
-        <img src={img} alt={name} width={150} height={150} />
-        <div>
-          <span>{name}</span>
-          <div>
-            <Button text="homepage" />
-            <Button text="wiki" grey />
-          </div>
-        </div>
-      </CharacterHeader>
-      <CharacterBody>
-        <p>
-          In Norse mythology, Loki is a god or jötunn (or both). Loki is the son
-          of Fárbauti and Laufey, and the brother of Helblindi and Býleistr. By
-          the jötunn Angrboða, Loki is the father of Hel, the wolf Fenrir, and
-          the world serpent Jörmungandr. By Sigyn, Loki is the father of Nari
-          and/or Narfi and with the stallion Svaðilfari as the father, Loki gave
-          birth—in the form of a mare—to the eight-legged horse Sleipnir. In
-          addition, Loki is referred to as the father of Váli in the Prose Edda.
-        </p>
-        <span>Comics:</span>
-        <ul>
-          <li>
-            <a href="#">All-Winners Squad: Band of Heroes (2011) #3</a>
-          </li>
-          <li>
-            <a href="#">Alpha Flight (1983) #50</a>
-          </li>
-          <li>
-            <a href="#">Amazing Spider-Man (1999) #503</a>
-          </li>
-          <li>
-            <a href="#">Amazing Spider-Man (1999) #504</a>
-          </li>
-          <li>
-            <a href="#">
-              AMAZING SPIDER-MAN VOL. 7: BOOK OF EZEKIEL TPB (Trade Paperback)
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Amazing-Spider-Man: Worldwide Vol. 8 (Trade Paperback)
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              Asgardians Of The Galaxy Vol. 2: War Of The Realms (Trade
-              Paperback)
-            </a>
-          </li>
-          <li>
-            <a href="#">Vengeance (2011) #4</a>
-          </li>
-          <li>
-            <a href="#">Avengers (1963) #1</a>
-          </li>
-        </ul>
-      </CharacterBody>
-    </CharacterInfoWrapper>
-  )
+class CharacterInfo extends Component {
+	constructor(props) {
+		super(props)
+
+		this.marvelService = new MarvelService()
+
+		this.state = {
+			characterData: null,
+			loading: false,
+			error: false,
+		}
+	}
+
+	onCharLoaded = (char) => {
+		this.setState({
+			characterData: char,
+			loading: false,
+			error: false,
+		})
+	}
+
+	onError = () => {
+		this.setState({ error: true, loading: false })
+	}
+
+	onCharLoading = () => {
+		this.setState({ loading: true })
+	}
+
+	getCharacter = (id) => {
+		this.onCharLoading()
+
+		this.marvelService
+			.getCharacter(id)
+			.then(this.onCharLoaded)
+			.catch(this.onError)
+	}
+
+	componentDidMount() {
+		if (this.props.id) this.getCharacter(this.props.id)
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.id !== prevProps.id) this.getCharacter(this.props.id)
+	}
+
+	render() {
+		const { loading, error, characterData } = this.state
+
+		const skeleton = loading || error || characterData ? null : <Skeleton />
+		const onLoading = loading ? <Spinner /> : null
+		const onError = error ? <ErrorMessage /> : null
+		const content =
+			!(loading && error) && !!characterData ? (
+				<View char={characterData} />
+			) : null
+
+		return (
+			<CharacterInfoWrapper>
+				{onLoading}
+				{onError}
+				{skeleton}
+				{content}
+			</CharacterInfoWrapper>
+		)
+	}
+}
+
+const View = ({
+	char: { name, description, thumbnail, homepage, wiki, comics },
+}) => {
+	if (!description) description = 'Description not found'
+
+	let newCommics = []
+
+	for (let i = 0; i < comics.length; i++)
+		if (i < 10)
+			newCommics.push({
+				url: comics[i].resourceURI,
+				name: comics[i].name,
+			})
+		else break
+
+	return (
+		<>
+			<CharacterHeader>
+				<img src={thumbnail} alt={name} width={150} height={150} />
+				<div>
+					<span>{name}</span>
+					<div>
+						<Button href={homepage} text="homepage" />
+						<Button href={wiki} text="wiki" grey />
+					</div>
+				</div>
+			</CharacterHeader>
+			<CharacterBody>
+				<p>{description}</p>
+				<span>Comics:</span>
+				<ul>
+					{comics.length > 0 ? null : 'There is no comics with this character!'}
+					{newCommics.map(({ name, url }, i) => (
+						<li key={i}>
+							<a href={url}>{name}</a>
+						</li>
+					))}
+				</ul>
+			</CharacterBody>
+		</>
+	)
 }
 
 export default CharacterInfo
