@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import styled from 'styled-components'
+import { Helmet } from 'react-helmet'
 
 import { device } from '../../styles/styled-components/queries'
 
@@ -8,12 +9,14 @@ import CharactersList from '../../components/CharactersList/CharactersList'
 import CharacterInfo from '../../components/CharacterInfo/CharacterInfo'
 import ButtonBigger from '../../components/ButtonBigger/ButtonBigger'
 
+import decoration from '../../img/bg_asset.png'
+
 const CharactersPageStyle = styled.div`
 	position: relative;
 
 	padding: 0 0 45px 0;
 
-	min-height: 1450px;
+	/* min-height: 1450px; */
 
 	.More {
 		margin: 0 auto;
@@ -21,22 +24,18 @@ const CharactersPageStyle = styled.div`
 `
 
 const CharactersSection = styled.section`
-	display: flex;
+	display: grid;
+	grid-template-columns: 2fr 1.3fr;
+	gap: 1.25rem;
 
 	margin: clamp(1.25rem, 5vh, 3.125rem) 0 clamp(1.25rem, 5vh, 2.8125rem);
 
-	@media ${device.laptop} {
-		flex-direction: column-reverse;
-	}
-`
+	@media ${device.tablet} {
+		grid-template-columns: none;
 
-const CharacterInfoWrapper = styled.div`
-	margin-left: 25px;
-	width: 90%;
-
-	@media ${device.laptop} {
-		width: 100%;
-		margin: 0;
+		.characterInfo {
+			order: -1;
+		}
 	}
 `
 
@@ -68,15 +67,19 @@ class Characters extends Component {
 
 		return (
 			<CharactersPageStyle>
+				<Helmet>
+					<title>Marvel Characters</title>
+					<meta name="description" content="Marvel characters portal" />
+				</Helmet>
 				<RandomCharacter />
 				<CharactersSection>
 					<CharactersList onCharSelected={this.onCharSelected} />
-					<CharacterInfoWrapper id="characterInfo">
-						<CharacterInfo id={selectedChar} />
-					</CharacterInfoWrapper>
+					<div className="characterInfo">
+						<CharacterInfo className="characterInfo" id={selectedChar} />
+					</div>
 				</CharactersSection>
 				<ButtonBigger text="Load More" className="More" />
-				<CharacterSectionDecoration src={require('../../img/bg_asset.png')} />
+				<CharacterSectionDecoration src={decoration} />
 			</CharactersPageStyle>
 		)
 	}

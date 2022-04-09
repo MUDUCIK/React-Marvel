@@ -10,8 +10,8 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage'
 const CharactersWrapper = styled.ul`
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1.875rem 0;
-	justify-content: space-between;
+	gap: 1.875rem 20px;
+	justify-content: center;
 
 	max-width: 650px;
 
@@ -25,7 +25,7 @@ const CharactersWrapper = styled.ul`
 		gap: 1.875rem 1.5625rem;
 
 		max-width: 100%;
-		margin-top: clamp(20px, 10vh, 50px);
+		/* margin-top: clamp(20px, 10vh, 50px); */
 	}
 `
 
@@ -76,8 +76,6 @@ class CharactersList extends Component {
 				/>
 			</li>
 		))
-
-		console.log(!(loading && error))
 
 		const onError = error ? <ErrorMessage /> : null
 		const onLoading = loading ? <Spinner /> : null

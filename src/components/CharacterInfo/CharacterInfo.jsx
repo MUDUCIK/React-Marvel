@@ -146,9 +146,7 @@ class CharacterInfo extends Component {
 		const onLoading = loading ? <Spinner /> : null
 		const onError = error ? <ErrorMessage /> : null
 		const content =
-			!(loading && error) && !!characterData ? (
-				<View char={characterData} />
-			) : null
+			!loading && !error && characterData ? <View char={characterData} /> : null
 
 		return (
 			<CharacterInfoWrapper>

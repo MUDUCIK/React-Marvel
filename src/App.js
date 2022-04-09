@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 import Header from './components/Header/Header'
 import Characters from './pages/Characters/Characters'
@@ -12,7 +13,18 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Navigate to="characters" />} />
 						<Route path="characters" element={<Characters />} />
-						<Route path="comics" element={<div>awdawdawdawdawd</div>} />
+						<Route
+							path="comics"
+							element={
+								<>
+									<Helmet>
+										<title>Marvel comics</title>
+										<meta name="description" content="Marvel comics" />
+									</Helmet>
+									<div>awdawdawdawdawd</div>
+								</>
+							}
+						/>
 					</Routes>
 				</div>
 			</main>
