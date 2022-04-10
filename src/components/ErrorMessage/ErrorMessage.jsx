@@ -6,6 +6,7 @@ const ErrorMessage = () => {
 			src={img}
 			alt="Error"
 			style={{
+				display: 'block',
 				margin: '0 auto',
 				objectFit: 'contain',
 			}}

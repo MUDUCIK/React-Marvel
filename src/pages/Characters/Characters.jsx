@@ -8,6 +8,7 @@ import RandomCharacter from '../../components/RandomCharacter/RandomCharacter'
 import CharactersList from '../../components/CharactersList/CharactersList'
 import CharacterInfo from '../../components/CharacterInfo/CharacterInfo'
 import ButtonBigger from '../../components/ButtonBigger/ButtonBigger'
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary'
 
 import decoration from '../../img/bg_asset.png'
 
@@ -73,9 +74,13 @@ class Characters extends Component {
 				</Helmet>
 				<RandomCharacter />
 				<CharactersSection>
-					<CharactersList onCharSelected={this.onCharSelected} />
+					<ErrorBoundary>
+						<CharactersList onCharSelected={this.onCharSelected} />
+					</ErrorBoundary>
 					<div className="characterInfo">
-						<CharacterInfo className="characterInfo" id={selectedChar} />
+						<ErrorBoundary>
+							<CharacterInfo className="characterInfo" id={selectedChar} />
+						</ErrorBoundary>
 					</div>
 				</CharactersSection>
 				<ButtonBigger text="Load More" className="More" />
