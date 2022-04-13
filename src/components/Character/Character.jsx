@@ -12,7 +12,7 @@ const CharacterStyle = styled.button`
 	font-size: 1.5rem;
 
 	min-height: 320px;
-	max-width: 200px;
+	width: 200px;
 
 	padding: 0;
 

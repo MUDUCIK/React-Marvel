@@ -1,97 +1,118 @@
 import styled from 'styled-components'
-import { Component } from 'react'
+import {Component} from 'react'
 
 import Character from '../Character/Character'
-import { device } from '../../styles/styled-components/queries'
-import { MarvelService } from '../../services/MarvelService'
+import {device} from '../../styles/styled-components/queries'
+import {MarvelService} from '../../services/MarvelService'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import ButtonBigger from "../ButtonBigger/ButtonBigger"
 
 const CharactersWrapper = styled.ul`
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1.875rem 20px;
-	justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.875rem 20px;
+  justify-content: center;
 
-	max-width: 650px;
+  max-width: 650px;
 
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 
-	list-style-type: none;
+  list-style-type: none;
 
-	@media ${device.laptop} {
-		justify-content: center;
-		gap: 1.875rem 1.5625rem;
+  @media ${device.laptop} {
+    justify-content: center;
+    gap: 1.875rem 1.5625rem;
 
-		max-width: 100%;
-		/* margin-top: clamp(20px, 10vh, 50px); */
-	}
+    max-width: 100%;
+    margin-top: clamp(20px, 10vh, 50px);
+  }
 `
 
 class CharactersList extends Component {
-	constructor(props) {
-		super(props)
+    constructor(props) {
+        super(props)
 
-		this.marvelService = new MarvelService()
+        this.marvelService = new MarvelService()
 
-		this.state = {
-			charactersData: [],
-			loading: true,
-			error: false,
-		}
-	}
+        this.state = {
+            charactersData: [],
+            loading: true,
+            error: false,
+            newCharLoading: false,
+            offset: 0,
+            maxReached: false
+        }
+    }
 
-	onError = () => {
-		this.setState({ error: true, loading: false })
-	}
+    onError = () => {
+        this.setState({error: true, loading: false})
+    }
 
-	onCharactersLoaded = ({ data: { results } }) => {
-		this.setState({
-			charactersData: results,
-			loading: false,
-			error: false,
-		})
-	}
+    onCharactersLoaded = ({data: {results}}) => {
+        let maxReached = results.length < 9
 
-	loadCharacters = () => {
-		this.marvelService
-			.getAllCharacters()
-			.then(this.onCharactersLoaded)
-			.catch(this.onError)
-	}
+        this.setState(prevState => ({
+            charactersData: [...prevState.charactersData, ...results],
+            loading: false,
+            error: false,
+            newCharLoading: false,
+            offset: prevState.offset + 9,
+            maxReached
+        }))
+    }
 
-	componentDidMount() {
-		this.loadCharacters()
-	}
+    loadCharacters = (offset = this.state.offset) => {
+        this.onNewCharLoading()
+        this.marvelService
+            .getAllCharacters(offset)
+            .then(this.onCharactersLoaded)
+            .catch(this.onError)
+    }
 
-	render() {
-		const { loading, error, charactersData } = this.state
+    onNewCharLoading = () => {
+        this.setState({newCharLoading: true})
+    }
 
-		const charactersItems = charactersData.map(({ id, name, thumbnail }) => (
-			<li key={id} onClick={() => this.props.onCharSelected(id)}>
-				<Character
-					name={name}
-					img={`${thumbnail.path}.${thumbnail.extension}`}
-				/>
-			</li>
-		))
+    componentDidMount() {
+        this.loadCharacters()
+    }
 
-		const onError = error ? <ErrorMessage /> : null
-		const onLoading = loading ? <Spinner /> : null
-		const content =
-			loading || error ? null : (
-				<CharactersWrapper>{charactersItems}</CharactersWrapper>
-			)
+    render() {
+        const {loading, error, charactersData, newCharLoading, offset, maxReached} = this.state
 
-		return (
-			<>
-				{onLoading}
-				{onError}
-				{content}
-			</>
-		)
-	}
+        const charactersItems = charactersData.map(({id, name, thumbnail}) => (
+            <li key={id} onClick={() => this.props.onCharSelected(id)}>
+                <Character
+                    name={name}
+                    img={`${thumbnail.path}.${thumbnail.extension}`}
+                />
+            </li>
+        ))
+
+        const onError   = error ? <ErrorMessage/> : null
+        const onLoading = loading ? <Spinner/> : null
+        const content   =
+                  loading || error ? null : (
+                      <CharactersWrapper>{charactersItems}</CharactersWrapper>
+                  )
+
+        return (
+            <>
+                {onLoading}
+                {onError}
+                {content}
+                {!maxReached &&
+                    <ButtonBigger
+                        disabled={newCharLoading}
+                        onClick={() => this.loadCharacters(offset)}
+                        text="Load More" className="More"
+                    />
+                }
+            </>
+        )
+    }
 }
 
 export default CharactersList
