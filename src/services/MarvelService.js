@@ -6,21 +6,16 @@ export class MarvelService {
 
     #getResource = async (url) => {
         const result = await fetch(url)
-        if (!result.ok)
-            throw new Error(`Could not fetch ${url}, status: ${result.status}`)
+        if (!result.ok) throw new Error(`Could not fetch ${url}, status: ${result.status}`)
         return await result.json()
     }
 
     getAllCharacters = (offset = this.#_offset) => {
-        return this.#getResource(
-            `${this.#_apiBase}characters?limit=9&offset=${offset}&${this.#_apiKey}`
-        )
+        return this.#getResource(`${this.#_apiBase}characters?limit=9&offset=${offset}&${this.#_apiKey}`)
     }
 
     getCharacter = async (id) => {
-        const res = await this.#getResource(
-            `${this.#_apiBase}characters/${id}?${this.#_apiKey}`
-        )
+        const res = await this.#getResource(`${this.#_apiBase}characters/${id}?${this.#_apiKey}`)
 
         return this._transformCharacter(res.data.results[0])
     }

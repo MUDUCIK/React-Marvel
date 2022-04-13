@@ -56,7 +56,11 @@ const CharacterSectionDecoration = styled.img`
   z-index: -1;
 
   right: -15%;
-  bottom: -10%;
+  bottom: -150px;
+
+  @media ${device.tablet} {
+    display: none;
+  }
 `
 
 class Characters extends Component {
