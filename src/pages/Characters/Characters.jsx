@@ -1,4 +1,4 @@
-import {Component} from 'react'
+import {Component, createRef} from 'react'
 import styled from 'styled-components'
 import {Helmet} from 'react-helmet'
 
@@ -12,7 +12,7 @@ import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary'
 import decoration from '../../img/bg_asset.png'
 
 const CharactersPageStyle = styled.div`
-  position: relative;
+  //position: relative;
 
   padding: 0 0 45px 0;
 
@@ -30,15 +30,14 @@ const CharactersSection = styled.section`
 
   margin: clamp(1.25rem, 5vh, 3.125rem) 0 clamp(1.25rem, 5vh, 2.8125rem);
 
-  .characterInfo {
+  #characterInfo {
     grid-column: 2;
     grid-row: 1;
   }
 
   @media ${device.tablet} {
     grid-template-columns: unset !important; //I don't understand why this rule doesn't work
-    
-    .characterInfo {
+    #characterInfo {
       order: -1;
       grid-column: unset;
       grid-row: unset;
@@ -55,7 +54,7 @@ const CharacterSectionDecoration = styled.img`
   position: absolute;
   z-index: -1;
 
-  right: -15%;
+  right: 10%;
   bottom: -150px;
 
   @media ${device.tablet} {
@@ -81,6 +80,7 @@ class Characters extends Component {
     render() {
         const {selectedChar} = this.state
 
+
         return (
             <CharactersPageStyle>
                 <Helmet>
@@ -90,11 +90,13 @@ class Characters extends Component {
                 <RandomCharacter/>
                 <CharactersSection>
                     <ErrorBoundary>
-                        <CharactersList onCharSelected={this.onCharSelected}/>
+                        <CharactersList
+                            onCharSelected={this.onCharSelected}
+                        />
                     </ErrorBoundary>
-                    <div className="characterInfo">
+                    <div id="characterInfo">
                         <ErrorBoundary>
-                            <CharacterInfo className="characterInfo" id={selectedChar}/>
+                            <CharacterInfo id={selectedChar}/>
                         </ErrorBoundary>
                     </div>
                 </CharactersSection>

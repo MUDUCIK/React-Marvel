@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import {Component} from 'react'
+import {Element} from "react-scroll"
 import {MarvelService} from '../../services/MarvelService'
+
+import {device} from "../../styles/styled-components/queries"
 
 import Button from '../Button/Button'
 import Spinner from '../Spinner/Spinner'
@@ -10,8 +13,14 @@ import Skeleton from '../Skeleton/Skeleton'
 const CharacterInfoWrapper = styled.div`
   padding: 1.5625rem;
 
+  min-height: 750px;
+
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   background: #fff;
+
+  @media ${device.tablet} {
+    min-height: 695px;
+  }
 `
 
 const CharacterHeader = styled.div`
@@ -19,7 +28,8 @@ const CharacterHeader = styled.div`
 
   img {
     max-width: 100%;
-    height: 150px;
+    height: auto;
+    object-fit: cover;
   }
 
   div {
@@ -36,6 +46,8 @@ const CharacterHeader = styled.div`
     span {
       font-weight: 700;
       text-transform: uppercase;
+
+      padding: 0 0 0.625rem;
     }
 
     div {
@@ -119,7 +131,7 @@ class CharacterInfo extends Component {
     }
 
     onCharLoading = () => {
-        this.setState({loading: true})
+        this.setState({loading: true, error: false})
     }
 
     getCharacter = (id) => {
@@ -149,12 +161,14 @@ class CharacterInfo extends Component {
                   !loading && !error && characterData ? <View char={characterData}/> : null
 
         return (
-            <CharacterInfoWrapper>
-                {onLoading}
-                {onError}
-                {skeleton}
-                {content}
-            </CharacterInfoWrapper>
+            <Element name="characterInfo">
+                <CharacterInfoWrapper>
+                    {onLoading}
+                    {onError}
+                    {skeleton}
+                    {content}
+                </CharacterInfoWrapper>
+            </Element>
         )
     }
 }

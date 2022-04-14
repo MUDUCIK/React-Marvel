@@ -21,11 +21,18 @@ const CharactersWrapper = styled.ul`
 
   list-style-type: none;
 
+  li {
+    display: flex;
+  }
+
   @media ${device.laptop} {
     justify-content: center;
     gap: 1.875rem 1.5625rem;
 
     max-width: 100%;
+  }
+
+  @media ${device.tablet} {
     margin-top: clamp(20px, 10vh, 50px);
   }
 `
@@ -37,12 +44,7 @@ class CharactersList extends Component {
         this.marvelService = new MarvelService()
 
         this.state = {
-            charactersData: [],
-            loading: true,
-            error: false,
-            newCharLoading: false,
-            offset: 0,
-            maxReached: false
+            charactersData: [], loading: true, error: false, newCharLoading: false, offset: 1240, maxReached: false
         }
     }
 
@@ -83,35 +85,29 @@ class CharactersList extends Component {
         const {loading, error, charactersData, newCharLoading, offset, maxReached} = this.state
 
         const charactersItems = charactersData.map(({id, name, thumbnail}) => (
-            <li key={id} onClick={() => this.props.onCharSelected(id)}>
+            <li key={id}>
                 <Character
+                    id={id}
                     name={name}
                     img={`${thumbnail.path}.${thumbnail.extension}`}
+                    onCharSelected={this.props.onCharSelected}
                 />
-            </li>
-        ))
+            </li>))
 
         const onError   = error ? <ErrorMessage/> : null
         const onLoading = loading ? <Spinner/> : null
-        const content   =
-                  loading || error ? null : (
-                      <CharactersWrapper>{charactersItems}</CharactersWrapper>
-                  )
+        const content   = loading || error ? null : (<CharactersWrapper>{charactersItems}</CharactersWrapper>)
 
-        return (
-            <>
-                {onLoading}
-                {onError}
-                {content}
-                {!maxReached &&
-                    <ButtonBigger
-                        disabled={newCharLoading}
-                        onClick={() => this.loadCharacters(offset)}
-                        text="Load More" className="More"
-                    />
-                }
-            </>
-        )
+        return (<>
+            {onLoading}
+            {onError}
+            {content}
+            {!maxReached && <ButtonBigger
+                disabled={newCharLoading}
+                onClick={() => this.loadCharacters(offset)}
+                text="Load More" className="More"
+            />}
+        </>)
     }
 }
 

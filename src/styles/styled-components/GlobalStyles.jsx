@@ -18,6 +18,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
+    position: relative;
+    
     font-family: 'Roboto Condensed', Roboto, serif;
   }
 

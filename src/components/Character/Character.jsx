@@ -1,11 +1,21 @@
 import styled from 'styled-components'
 import {usePalette} from 'react-palette'
+import {Link} from "react-scroll"
 
 const CharacterStyle = styled.button`
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
 
-  gap: 0.9375em 0;
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9375em 0;
+
+    height: 100%;
+    width: 100%;
+
+    padding: 0 0 1.25rem;
+  }
 
   color: var(--main-text-white);
   font-size: 1.5rem;
@@ -49,15 +59,24 @@ const CharacterStyle = styled.button`
   }
 `
 
-const Character = ({img, name, ...props}) => {
-    const {data: {darkVibrant}} = usePalette(img)
+const Character = ({img, name, id, onCharSelected, ...props}) => {
+    const {data: {darkVibrant}} = usePalette(img),
+          smooth                = document.documentElement.clientWidth <= 768
 
     return (
         <CharacterStyle shadowColor={darkVibrant}>
-            <img src={img} width={200} height={200} alt={name}/>
-            <div>
-                <span>{name}</span>
-            </div>
+            <Link
+                to="characterInfo"
+                smooth={smooth}
+                offset={-20}
+                duration={500}
+                onClick={() => onCharSelected(id)}
+            >
+                <img src={img} width={200} height={200} alt={name}/>
+                <div>
+                    <span>{name}</span>
+                </div>
+            </Link>
         </CharacterStyle>
     )
 }

@@ -30,7 +30,7 @@ const HeaderStyle = styled.header`
 
       a {
         padding: .5em;
-        
+
         &:focus {
           color: var(--main-red-color);
         }
@@ -57,7 +57,7 @@ const setActive = ({isActive}) => isActive ? 'active-link' : ''
 
 const Header = () => {
     return (
-        <HeaderStyle>
+        <HeaderStyle id="header">
             <nav>
                 <div>
                     <p><Link to="characters">Marvel</Link> information portal</p>
