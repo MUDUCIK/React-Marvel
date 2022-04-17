@@ -25,7 +25,7 @@ function App() {
                 </>
               }
             />
-            <Route path={'*'} component={<div>Page not found</div>} />
+            <Route path='*' element={<div>Page not found</div>} />
           </Routes>
         </div>
       </main>
