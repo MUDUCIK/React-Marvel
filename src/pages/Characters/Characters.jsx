@@ -1,8 +1,8 @@
-import {Component, createRef} from 'react'
+import { Component } from 'react'
 import styled from 'styled-components'
-import {Helmet} from 'react-helmet'
+import { Helmet } from 'react-helmet'
 
-import {device} from '../../styles/styled-components/queries'
+import { device } from '../../styles/styled-components/queries'
 
 import RandomCharacter from '../../components/RandomCharacter/RandomCharacter'
 import CharactersList from '../../components/CharactersList/CharactersList'
@@ -46,7 +46,6 @@ const CharactersSection = styled.section`
 
   @media ${device.laptop} {
     grid-template-columns: 2fr 1.6fr;
-
   }
 `
 
@@ -63,47 +62,44 @@ const CharacterSectionDecoration = styled.img`
 `
 
 class Characters extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.state = {
-            selectedChar: null,
-        }
+    this.state = {
+      selectedChar: 0,
     }
+  }
 
-    onCharSelected = (id) => {
-        this.setState({
-            selectedChar: id,
-        })
-    }
+  onCharSelected = (id) => {
+    this.setState({
+      selectedChar: id,
+    })
+  }
 
-    render() {
-        const {selectedChar} = this.state
+  render() {
+    const { selectedChar } = this.state
 
-
-        return (
-            <CharactersPageStyle>
-                <Helmet>
-                    <title>Marvel Characters</title>
-                    <meta name="description" content="Marvel characters portal"/>
-                </Helmet>
-                <RandomCharacter/>
-                <CharactersSection>
-                    <ErrorBoundary>
-                        <CharactersList
-                            onCharSelected={this.onCharSelected}
-                        />
-                    </ErrorBoundary>
-                    <div id="characterInfo">
-                        <ErrorBoundary>
-                            <CharacterInfo id={selectedChar}/>
-                        </ErrorBoundary>
-                    </div>
-                </CharactersSection>
-                <CharacterSectionDecoration src={decoration}/>
-            </CharactersPageStyle>
-        )
-    }
+    return (
+      <CharactersPageStyle>
+        <Helmet>
+          <title>Marvel Characters</title>
+          <meta name='description' content='Marvel characters portal' />
+        </Helmet>
+        <RandomCharacter />
+        <CharactersSection>
+          <ErrorBoundary>
+            <CharactersList onCharSelected={this.onCharSelected} />
+          </ErrorBoundary>
+          <div id='characterInfo'>
+            <ErrorBoundary>
+              <CharacterInfo id={selectedChar} />
+            </ErrorBoundary>
+          </div>
+        </CharactersSection>
+        <CharacterSectionDecoration src={decoration} />
+      </CharactersPageStyle>
+    )
+  }
 }
 
 export default Characters

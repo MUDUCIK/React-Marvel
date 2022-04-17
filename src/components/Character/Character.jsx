@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import {usePalette} from 'react-palette'
-import {Link} from "react-scroll"
+import { usePalette } from 'react-palette'
+import { Link } from 'react-scroll'
 
 const CharacterStyle = styled.button`
   display: flex;
@@ -34,13 +34,13 @@ const CharacterStyle = styled.button`
   &:focus {
     transform: translateY(-10px);
 
-    box-shadow: 0 5px 20px 3px ${({shadowColor}) => shadowColor};
+    box-shadow: 0 5px 20px 3px ${({ shadowColor }) => shadowColor};
   }
 
   &:hover {
     transform: translateY(-10px);
 
-    box-shadow: 0 5px 20px 2px ${({shadowColor}) => shadowColor};
+    box-shadow: 0 5px 20px 2px ${({ shadowColor }) => shadowColor};
   }
 
   img {
@@ -59,26 +59,28 @@ const CharacterStyle = styled.button`
   }
 `
 
-const Character = ({img, name, id, onCharSelected, ...props}) => {
-    const {data: {darkVibrant}} = usePalette(img),
-          smooth                = document.documentElement.clientWidth <= 768
+const Character = ({ img, name, id, onCharSelected, ...props }) => {
+  const {
+      data: { darkVibrant },
+    } = usePalette(img),
+    smooth = document.documentElement.clientWidth <= 768
 
-    return (
-        <CharacterStyle shadowColor={darkVibrant}>
-            <Link
-                to="characterInfo"
-                smooth={smooth}
-                offset={-20}
-                duration={500}
-                onClick={() => onCharSelected(id)}
-            >
-                <img src={img} width={200} height={200} alt={name}/>
-                <div>
-                    <span>{name}</span>
-                </div>
-            </Link>
-        </CharacterStyle>
-    )
+  return (
+    <CharacterStyle shadowColor={darkVibrant}>
+      <Link
+        to='characterInfo'
+        smooth={smooth}
+        offset={-20}
+        duration={500}
+        onClick={() => onCharSelected(id)}
+      >
+        <img src={img} width={200} height={200} alt={name} />
+        <div>
+          <span>{name}</span>
+        </div>
+      </Link>
+    </CharacterStyle>
+  )
 }
 
 export default Character

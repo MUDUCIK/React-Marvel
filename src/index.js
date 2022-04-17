@@ -9,11 +9,11 @@ import './styles/css/fonts.css'
 import { GlobalStyles } from './styles/styled-components/GlobalStyles'
 
 render(
-	<StrictMode>
-		<BrowserRouter>
-			<GlobalStyles />
-			<App />
-		</BrowserRouter>
-	</StrictMode>,
-	document.getElementById('marvel')
+  <StrictMode>
+    <BrowserRouter>
+      <GlobalStyles />
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
+  document.getElementById('marvel')
 )
