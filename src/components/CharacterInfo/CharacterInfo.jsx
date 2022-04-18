@@ -29,7 +29,7 @@ const CharacterHeader = styled.div`
 
   img {
     max-width: 100%;
-    height: auto;
+    min-height: 100%;
     object-fit: cover;
   }
 
