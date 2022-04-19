@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { Component } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import Character from '../Character/Character'
 import { device } from '../../styles/styled-components/queries'
@@ -38,99 +38,88 @@ const CharactersWrapper = styled.ul`
   }
 `
 
-class CharactersList extends Component {
-  constructor(props) {
-    super(props)
+const CharactersList = ({ onCharSelected, ...props }) => {
+  const [charactersData, setCharactersData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+  const [newCharLoading, setNewCharLoading] = useState(false)
+  const [offset, setOffset] = useState(1240)
+  const [maxReached, setMaxReached] = useState(false)
 
-    this.marvelService = new MarvelService()
+  const marvelService = new MarvelService()
 
-    this.state = {
-      charactersData: [],
-      loading: true,
-      error: false,
-      newCharLoading: false,
-      offset: 1240,
-      maxReached: false,
-    }
-  }
+  useEffect(() => {
+    loadCharacters()
+  }, [])
 
-  onError = () => {
+  const onError = () => {
     this.setState({ error: true, loading: false })
   }
 
-  onCharactersLoaded = ({ data: { results } }) => {
+  const onCharactersLoaded = ({ data: { results } }) => {
     let maxReached = results.length < 9
 
-    this.setState((prevState) => ({
-      charactersData: [...prevState.charactersData, ...results],
-      loading: false,
-      error: false,
-      newCharLoading: false,
-      offset: prevState.offset + 9,
-      maxReached,
-    }))
+    setCharactersData((charactersData) => [...charactersData, ...results])
+    setLoading(false)
+    setError(false)
+    setNewCharLoading(false)
+    setOffset((offset) => offset + 9)
+    setMaxReached(maxReached)
   }
 
-  loadCharacters = (offset = this.state.offset) => {
-    this.onNewCharLoading()
-    this.marvelService
-      .getAllCharacters(offset)
-      .then(this.onCharactersLoaded)
-      .catch(this.onError)
+  const loadCharacters = (offsetValue = offset) => {
+    onNewCharLoading()
+    marvelService
+      .getAllCharacters(offsetValue)
+      .then(onCharactersLoaded)
+      .catch(onError)
   }
 
-  onNewCharLoading = () => {
-    this.setState({ newCharLoading: true })
+  const onNewCharLoading = () => {
+    setNewCharLoading(true)
   }
 
-  componentDidMount() {
-    this.loadCharacters()
-  }
-
-  render() {
-    const {
-      loading,
-      error,
-      charactersData,
-      newCharLoading,
-      offset,
-      maxReached,
-    } = this.state
-
-    const charactersItems = charactersData.map(({ id, name, thumbnail }) => (
+  const charactersItems = useMemo(() => {
+    return charactersData.map(({ id, name, thumbnail }) => (
       <li key={id}>
         <Character
           id={id}
           name={name}
           img={`${thumbnail.path}.${thumbnail.extension}`}
-          onCharSelected={this.props.onCharSelected}
+          onCharSelected={onCharSelected}
         />
       </li>
     ))
+  }, [charactersData])
 
-    const onError = error ? <ErrorMessage /> : null
-    const onLoading = loading ? <Spinner /> : null
-    const content =
+  const errorOccurred = useMemo(
+    () => (error ? <ErrorMessage /> : null),
+    [error]
+  )
+  const onLoading = useMemo(() => (loading ? <Spinner /> : null), [loading])
+  const content = useMemo(
+    () =>
       loading || error ? null : (
         <CharactersWrapper>{charactersItems}</CharactersWrapper>
-      )
+      ),
+    [error, loading, charactersItems]
+  )
 
-    return (
-      <>
-        {onLoading}
-        {onError}
-        {content}
-        {!maxReached && (
-          <ButtonBigger
-            disabled={newCharLoading}
-            onClick={() => this.loadCharacters(offset)}
-            text='Load More'
-            className='More'
-          />
-        )}
-      </>
-    )
-  }
+  return (
+    <>
+      {onLoading}
+      {errorOccurred}
+      {content}
+      {!maxReached && (
+        <ButtonBigger
+          disabled={newCharLoading}
+          onClick={() => loadCharacters(offset)}
+          text='Load More'
+          className='More'
+        />
+      )}
+    </>
+  )
 }
 
 CharactersList.propTypes = {

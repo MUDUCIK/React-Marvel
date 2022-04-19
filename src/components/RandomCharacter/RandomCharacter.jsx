@@ -1,11 +1,13 @@
+import { useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { Component } from 'react/cjs/react.production.min'
 
 import { device } from '../../styles/styled-components/queries'
 import Button from '../Button/Button'
 import { MarvelService } from '../../services/MarvelService'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
+
+import decoration from '../../img/Decoration.png'
 
 const Wrapper = styled.div`
   display: flex;
@@ -168,76 +170,57 @@ const Wrapper = styled.div`
   }
 `
 
-class RandomCharacter extends Component {
-  state = {
-    char: {},
-    loading: true,
-    error: false,
+const RandomCharacter = (props) => {
+  const [char, setChar] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  const marvelService = new MarvelService()
+
+  useEffect(() => {
+    updateChar()
+  }, [])
+
+  const onCharLoaded = (char) => {
+    setChar(char)
+    setLoading(false)
   }
 
-  marvelService = new MarvelService()
-
-  onCharLoaded = (char) => {
-    this.setState({
-      char,
-      loading: false,
-    })
+  const onError = () => {
+    setLoading(false)
+    setError(true)
   }
 
-  onError = () => {
-    this.setState({
-      loading: false,
-      error: true,
-    })
-  }
-
-  updateChar = () => {
-    this.setState({
-      loading: true,
-      error: false,
-    })
+  const updateChar = () => {
+    setLoading(true)
+    setError(false)
 
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
 
-    this.marvelService
-      .getCharacter(id)
-      .then(this.onCharLoaded)
-      .catch(this.onError)
+    marvelService.getCharacter(id).then(onCharLoaded).catch(onError)
   }
 
-  componentDidMount() {
-    this.updateChar()
-  }
+  const errorMessage = useMemo(() => (error ? <ErrorMessage /> : null), [error])
+  const spinner = useMemo(() => (loading ? <Spinner /> : null), [loading])
+  const content = !(loading || error) ? <View char={char} /> : null
 
-  render() {
-    const { loading, error } = this.state
-    const errorMessage = error ? <ErrorMessage /> : null
-    const spinner = loading ? <Spinner /> : null
-    const content = !(loading || error) ? <View char={this.state.char} /> : null
-
-    return (
-      <Wrapper id='randomCharacter'>
-        <div className='item'>
-          {errorMessage}
-          {spinner}
-          {content}
-        </div>
-        <div className='item'>
-          <img
-            src={require('../../img/Decoration.png')}
-            alt=''
-            width={202}
-            height={190}
-          />
-          <h3>
-            Random character for today! Do you want to get to know him better?
-          </h3>
-          <p>Or choose another one</p>
-          <Button onClick={this.updateChar} text='try it' />
-        </div>
-      </Wrapper>
-    )
-  }
+  return (
+    <Wrapper id='randomCharacter'>
+      <div className='item'>
+        {errorMessage}
+        {spinner}
+        {content}
+      </div>
+      <div className='item'>
+        <img src={decoration} alt='' width={202} height={190} />
+        <h3>
+          Random character for today! Do you want to get to know him better?
+        </h3>
+        <p>Or choose another one</p>
+        <Button onClick={updateChar} text='try it' />
+      </div>
+    </Wrapper>
+  )
 }
 
 const View = ({ char }) => {

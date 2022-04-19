@@ -1,6 +1,6 @@
-import {NavLink, Link} from "react-router-dom"
+import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import {device} from "../../styles/styled-components/queries"
+import { device } from '../../styles/styled-components/queries'
 
 const HeaderStyle = styled.header`
   width: 100%;
@@ -19,7 +19,7 @@ const HeaderStyle = styled.header`
       font-size: 1.75rem;
 
       p > a {
-        padding: .5em 0;
+        padding: 0.5em 0;
 
         color: var(--main-red-color);
       }
@@ -29,7 +29,7 @@ const HeaderStyle = styled.header`
       font-size: 1.5rem;
 
       a {
-        padding: .5em;
+        padding: 0.5em;
 
         &:focus {
           color: var(--main-red-color);
@@ -47,29 +47,34 @@ const HeaderStyle = styled.header`
       flex-direction: column;
       justify-content: center;
 
-      gap: .625rem 0;
+      gap: 0.625rem 0;
     }
   }
-
 `
 
-const setActive = ({isActive}) => isActive ? 'active-link' : ''
-
 const Header = () => {
-    return (
-        <HeaderStyle id="header">
-            <nav>
-                <div>
-                    <p><Link to="characters">Marvel</Link> information portal</p>
-                </div>
-                <div>
-                    <NavLink to="characters" className={setActive}>Characters</NavLink>
-                    <span>/</span>
-                    <NavLink to="comics" className={setActive}>Comics</NavLink>
-                </div>
-            </nav>
-        </HeaderStyle>
-    )
+  const setActive = ({ isActive }) => (isActive ? 'active-link' : '')
+
+  return (
+    <HeaderStyle id='header'>
+      <nav>
+        <div>
+          <p>
+            <Link to='characters'>Marvel</Link> information portal
+          </p>
+        </div>
+        <div>
+          <NavLink to='characters' className={setActive}>
+            Characters
+          </NavLink>
+          <span>/</span>
+          <NavLink to='comics' className={setActive}>
+            Comics
+          </NavLink>
+        </div>
+      </nav>
+    </HeaderStyle>
+  )
 }
 
 export default Header

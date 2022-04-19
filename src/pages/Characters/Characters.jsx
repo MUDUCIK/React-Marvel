@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 import { Helmet } from 'react-helmet'
 
@@ -61,45 +61,33 @@ const CharacterSectionDecoration = styled.img`
   }
 `
 
-class Characters extends Component {
-  constructor(props) {
-    super(props)
+const Characters = () => {
+  const [selectedChar, setSelectedChar] = useState(0)
 
-    this.state = {
-      selectedChar: 0,
-    }
+  const onCharSelected = (id) => {
+    setSelectedChar(id)
   }
 
-  onCharSelected = (id) => {
-    this.setState({
-      selectedChar: id,
-    })
-  }
-
-  render() {
-    const { selectedChar } = this.state
-
-    return (
-      <CharactersPageStyle>
-        <Helmet>
-          <title>Marvel Characters</title>
-          <meta name='description' content='Marvel characters portal' />
-        </Helmet>
-        <RandomCharacter />
-        <CharactersSection>
+  return (
+    <CharactersPageStyle>
+      <Helmet>
+        <title>Marvel Characters</title>
+        <meta name='description' content='Marvel characters portal' />
+      </Helmet>
+      <RandomCharacter />
+      <CharactersSection>
+        <ErrorBoundary>
+          <CharactersList onCharSelected={onCharSelected} />
+        </ErrorBoundary>
+        <div id='characterInfo'>
           <ErrorBoundary>
-            <CharactersList onCharSelected={this.onCharSelected} />
+            <CharacterInfo id={selectedChar} />
           </ErrorBoundary>
-          <div id='characterInfo'>
-            <ErrorBoundary>
-              <CharacterInfo id={selectedChar} />
-            </ErrorBoundary>
-          </div>
-        </CharactersSection>
-        <CharacterSectionDecoration src={decoration} />
-      </CharactersPageStyle>
-    )
-  }
+        </div>
+      </CharactersSection>
+      <CharacterSectionDecoration src={decoration} />
+    </CharactersPageStyle>
+  )
 }
 
 export default Characters
