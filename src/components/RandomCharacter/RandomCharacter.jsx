@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useMarvelService } from '../../services/MarvelService'
+
 import styled from 'styled-components'
 
 import { device } from '../../styles/styled-components/queries'
 import Button from '../Button/Button'
-import { MarvelService } from '../../services/MarvelService'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
@@ -172,10 +173,8 @@ const Wrapper = styled.div`
 
 const RandomCharacter = (props) => {
   const [char, setChar] = useState({})
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
 
-  const marvelService = new MarvelService()
+  const { loading, error, getCharacter, clearError } = useMarvelService()
 
   useEffect(() => {
     updateChar()
@@ -183,21 +182,13 @@ const RandomCharacter = (props) => {
 
   const onCharLoaded = (char) => {
     setChar(char)
-    setLoading(false)
-  }
-
-  const onError = () => {
-    setLoading(false)
-    setError(true)
   }
 
   const updateChar = () => {
-    setLoading(true)
-    setError(false)
-
+    clearError()
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
 
-    marvelService.getCharacter(id).then(onCharLoaded).catch(onError)
+    getCharacter(id).then(onCharLoaded)
   }
 
   const errorMessage = useMemo(() => (error ? <ErrorMessage /> : null), [error])

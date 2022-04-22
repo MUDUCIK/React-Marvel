@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import { Helmet } from 'react-helmet'
 
 import { device } from '../../styles/styled-components/queries'
-
-import RandomCharacter from '../../components/RandomCharacter/RandomCharacter'
 import CharactersList from '../../components/CharactersList/CharactersList'
+import RandomCharacter from '../../components/RandomCharacter/RandomCharacter'
 import CharacterInfo from '../../components/CharacterInfo/CharacterInfo'
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary'
 

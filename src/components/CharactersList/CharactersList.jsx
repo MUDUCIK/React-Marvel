@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useEffect, useMemo, useState } from 'react'
+import { useMarvelService } from '../../services/MarvelService'
 
 import Character from '../Character/Character'
 import { device } from '../../styles/styled-components/queries'
-import { MarvelService } from '../../services/MarvelService'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import ButtonBigger from '../ButtonBigger/ButtonBigger'
@@ -40,43 +40,27 @@ const CharactersWrapper = styled.ul`
 
 const CharactersList = ({ onCharSelected, ...props }) => {
   const [charactersData, setCharactersData] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
   const [newCharLoading, setNewCharLoading] = useState(false)
   const [offset, setOffset] = useState(1240)
   const [maxReached, setMaxReached] = useState(false)
-
-  const marvelService = new MarvelService()
+  const { getAllCharacters, loading, error } = useMarvelService()
 
   useEffect(() => {
-    loadCharacters()
+    loadCharacters(offset, true)
   }, [])
-
-  const onError = () => {
-    this.setState({ error: true, loading: false })
-  }
 
   const onCharactersLoaded = ({ data: { results } }) => {
     let maxReached = results.length < 9
 
     setCharactersData((charactersData) => [...charactersData, ...results])
-    setLoading(false)
-    setError(false)
     setNewCharLoading(false)
     setOffset((offset) => offset + 9)
     setMaxReached(maxReached)
   }
 
-  const loadCharacters = (offsetValue = offset) => {
-    onNewCharLoading()
-    marvelService
-      .getAllCharacters(offsetValue)
-      .then(onCharactersLoaded)
-      .catch(onError)
-  }
-
-  const onNewCharLoading = () => {
-    setNewCharLoading(true)
+  const loadCharacters = (offsetValue = offset, initial) => {
+    initial ? setNewCharLoading(false) : setNewCharLoading(true)
+    getAllCharacters(offsetValue).then(onCharactersLoaded)
   }
 
   const charactersItems = useMemo(() => {
@@ -96,20 +80,16 @@ const CharactersList = ({ onCharSelected, ...props }) => {
     () => (error ? <ErrorMessage /> : null),
     [error]
   )
-  const onLoading = useMemo(() => (loading ? <Spinner /> : null), [loading])
-  const content = useMemo(
-    () =>
-      loading || error ? null : (
-        <CharactersWrapper>{charactersItems}</CharactersWrapper>
-      ),
-    [error, loading, charactersItems]
+  const onLoading = useMemo(
+    () => (loading && !newCharLoading ? <Spinner /> : null),
+    [loading]
   )
 
   return (
     <>
       {onLoading}
       {errorOccurred}
-      {content}
+      {!error && <CharactersWrapper>{charactersItems}</CharactersWrapper>}
       {!maxReached && (
         <ButtonBigger
           disabled={newCharLoading}

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { Element } from 'react-scroll'
-import { MarvelService } from '../../services/MarvelService'
+import { useMarvelService } from '../../services/MarvelService'
 
 import { device } from '../../styles/styled-components/queries'
 
@@ -108,38 +108,20 @@ const CharacterBody = styled.div`
 
 const CharacterInfo = ({ id, ...props }) => {
   const [characterData, setCharacterData] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
 
-  const marvelService = new MarvelService()
+  const { loading, error, getCharacter, clearError } = useMarvelService()
 
   const onCharLoaded = (char) => {
     setCharacterData(char)
-    setLoading(false)
-    setError(false)
   }
 
-  const onError = () => {
-    setError(true)
-    setLoading(false)
-  }
-
-  const onCharLoading = () => {
-    setLoading(true)
-    setError(false)
-  }
-
-  const getCharacter = (id) => {
-    onCharLoading()
-    marvelService.getCharacter(id).then(onCharLoaded).catch(onError)
+  const onCharRequest = (id) => {
+    clearError()
+    getCharacter(id).then(onCharLoaded)
   }
 
   useEffect(() => {
-    if (id) getCharacter(id)
-  }, [])
-
-  useEffect(() => {
-    if (id) getCharacter(id)
+    if (id) onCharRequest(id)
   }, [id])
 
   const skeleton = loading || error || characterData ? null : <Skeleton />
