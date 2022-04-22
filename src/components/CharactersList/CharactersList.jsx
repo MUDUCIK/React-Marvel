@@ -41,8 +41,8 @@ const CharactersWrapper = styled.ul`
 const CharactersList = ({ onCharSelected, ...props }) => {
   const [charactersData, setCharactersData] = useState([])
   const [newCharLoading, setNewCharLoading] = useState(false)
-  const [offset, setOffset] = useState(1240)
-  const [maxReached, setMaxReached] = useState(false)
+  const [offset, setOffset] = useState(1500)
+  const [maxReached, setMaxReached] = useState(true)
   const { getAllCharacters, loading, error } = useMarvelService()
 
   useEffect(() => {
