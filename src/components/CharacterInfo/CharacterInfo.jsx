@@ -6,10 +6,10 @@ import { useMarvelService } from '../../services/MarvelService'
 
 import { device } from '../../styles/styled-components/queries'
 
-import Button from '../Button/Button'
-import Spinner from '../Spinner/Spinner'
-import ErrorMessage from '../ErrorMessage/ErrorMessage'
-import Skeleton from '../Skeleton/Skeleton'
+import Button from '../controls/Button/Button'
+import Spinner from '../elements/Spinner/Spinner'
+import ErrorMessage from '../elements/ErrorMessage/ErrorMessage'
+import Skeleton from '../elements/Skeleton/Skeleton'
 
 const CharacterInfoWrapper = styled.div`
   padding: 1.5625rem;

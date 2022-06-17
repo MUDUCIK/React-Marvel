@@ -5,9 +5,9 @@ import { useMarvelService } from '../../services/MarvelService'
 
 import Character from '../Character/Character'
 import { device } from '../../styles/styled-components/queries'
-import Spinner from '../Spinner/Spinner'
-import ErrorMessage from '../ErrorMessage/ErrorMessage'
-import ButtonBigger from '../ButtonBigger/ButtonBigger'
+import Spinner from '../elements/Spinner/Spinner'
+import ErrorMessage from '../elements/ErrorMessage/ErrorMessage'
+import ButtonBigger from '../controls/ButtonBigger/ButtonBigger'
 
 const CharactersWrapper = styled.ul`
   display: flex;

@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import styled from 'styled-components'
-import { device } from '../../styles/styled-components/queries'
+import { device } from '../../../styles/styled-components/queries'
 
 const HeaderStyle = styled.header`
   width: 100%;

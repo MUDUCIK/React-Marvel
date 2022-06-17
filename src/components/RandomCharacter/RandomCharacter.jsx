@@ -4,9 +4,9 @@ import { useMarvelService } from '../../services/MarvelService'
 import styled from 'styled-components'
 
 import { device } from '../../styles/styled-components/queries'
-import Button from '../Button/Button'
-import Spinner from '../Spinner/Spinner'
-import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import Button from '../controls/Button/Button'
+import Spinner from '../elements/Spinner/Spinner'
+import ErrorMessage from '../elements/ErrorMessage/ErrorMessage'
 
 import decoration from '../../img/Decoration.png'
 

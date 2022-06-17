@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
-import Header from './components/Header/Header'
-import Characters from './pages/Characters/Characters'
+import { Header } from './components/elements'
+import { Characters } from './pages'
 
 function App() {
   return (

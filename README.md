@@ -6,15 +6,13 @@ Just for study. Just to test my skills.
 
 ### To start the application, type `npm start`
 
-## Used libraries:
+## Used libraries
 
-```
-styled-components
-react-router-dom
-react-helmet
-react-palette
-react-scroll
-```
+- [styled-components](https://styled-components.com/)
+- [react-router-dom](https://v5.reactrouter.com/web/guides/quick-start)
+- [react-helmet](https://www.npmjs.com/package/react-helmet)
+- [react-palette](https://www.npmjs.com/package/react-palette)
+- [react-scroll](https://www.npmjs.com/package/react-scroll)
 
 ## What the app does:
 
