@@ -1,4 +1,4 @@
-# React Marvel is a hands-on project.
+# React [Marvel](https://marvel-service.herokuapp.com/characters) is a hands-on project.
 
 Just for study. Just to test my skills.
 
@@ -18,5 +18,3 @@ Just for study. Just to test my skills.
 
 This app interacts with the [Marvel Developer Portal](https://developer.marvel.com/) API to get characters, comics and
 information about them.
-
-## [Marvel service](https://marvel-service.herokuapp.com/characters)
