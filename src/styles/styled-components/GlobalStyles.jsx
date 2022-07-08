@@ -6,6 +6,7 @@ export const GlobalStyles = createGlobalStyle`
   :root {
     --main-red-color: #9F0013;
     --main-hover-red: #950018;
+    --main-success-color: #03710E;
     --main-bg-color: #232222;
     --main-bg-grey: #5C5C5C;
     --main-hover-grey: #4e4e4e;
@@ -19,7 +20,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     position: relative;
-    
+
     font-family: 'Roboto Condensed', Roboto, serif;
   }
 
@@ -59,7 +60,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
 
-//Skeleton
+  //Skeleton
   .char__select {
     text-align: center;
     margin-bottom: 1.25rem;
@@ -67,46 +68,50 @@ export const GlobalStyles = createGlobalStyle`
 
   .skeleton {
     &__header {
-        display: grid;
-        grid-template-columns: 40px auto;
-        column-gap: 10px;
-        align-items: center;
+      display: grid;
+      grid-template-columns: 40px auto;
+      column-gap: 10px;
+      align-items: center;
     }
+
     &__circle {
-        width: 40px;
-        height: 40px;
-        background-color: #C4C4C4;
-        border-radius: 100%;
+      width: 40px;
+      height: 40px;
+      background-color: #C4C4C4;
+      border-radius: 100%;
     }
+
     &__mini {
-        width: 100%;
-        height: 16px;
-        background-color: #C4C4C4;
+      width: 100%;
+      height: 16px;
+      background-color: #C4C4C4;
     }
+
     &__block {
-        height: 35px;
-        width: 100%;
-        background-color: #C4C4C4;
-        margin-top: 15px;
+      height: 35px;
+      width: 100%;
+      background-color: #C4C4C4;
+      margin-top: 15px;
     }
-}
+  }
 
   .pulse {
     animation: pulse 1.5s ease-in-out .5s infinite
-    }
+  }
 
   @keyframes pulse {
-      0% {
-          opacity: 1
-      }
-      50% {
-          opacity: .4
-      }
-      100% {
-          opacity: 1
-      }
+    0% {
+      opacity: 1
+    }
+    50% {
+      opacity: .4
+    }
+    100% {
+      opacity: 1
+    }
   }
-//Skeleton
+
+  //Skeleton
 
   @media ${device.tablet} {
     html {

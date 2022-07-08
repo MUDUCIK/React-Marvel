@@ -1,8 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Helmet } from 'react-helmet'
 
 import { Header } from './components/elements'
-import { Characters } from './pages'
+import { AboutCharacter, AboutComics, Characters, Comics } from './pages'
 
 function App() {
   return (
@@ -12,19 +11,14 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<Navigate to='characters' />} />
-            <Route path='characters' element={<Characters />} />
-            <Route
-              path='comics'
-              element={
-                <>
-                  <Helmet>
-                    <title>Marvel comics</title>
-                    <meta name='description' content='Marvel comics' />
-                  </Helmet>
-                  <div>awdawdawdawdawd</div>
-                </>
-              }
-            />
+            <Route path='characters'>
+              <Route index element={<Characters />} />
+              <Route path=':id' element={<AboutCharacter />} />
+            </Route>
+            <Route path='comics'>
+              <Route index element={<Comics />} />
+              <Route path=':id' element={<AboutComics />} />
+            </Route>
             <Route path='*' element={<div>Page not found</div>} />
           </Routes>
         </div>

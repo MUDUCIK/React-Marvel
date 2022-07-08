@@ -3,21 +3,13 @@ import styled from 'styled-components'
 import { Helmet } from 'react-helmet'
 
 import { device } from '../../styles/styled-components/queries'
-import {
-  CharactersList,
-  CharacterInfo,
-  RandomCharacter,
-} from '../../components'
-import { ErrorBoundary } from '../../components/elements'
+import { CharacterInfo, CharactersList } from '../../components'
+import { ErrorBoundary, RandomCharacter, SearchCharacterByName } from '../../components/elements'
 
 import decoration from '../../img/bg_asset.png'
 
 const CharactersPageStyle = styled.div`
-  //position: relative;
-
   padding: 0 0 45px 0;
-
-  /* min-height: 1450px; */
 
   .More {
     margin: 0 auto;
@@ -32,12 +24,16 @@ const CharactersSection = styled.section`
   margin: clamp(1.25rem, 5vh, 3.125rem) 0 clamp(1.25rem, 5vh, 2.8125rem);
 
   #characterInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.875rem;
+
     grid-column: 2;
     grid-row: 1;
   }
 
   @media ${device.tablet} {
-    grid-template-columns: unset !important; //I don't understand why this rule doesn't work
+    grid-template-columns: unset !important;
     #characterInfo {
       order: -1;
       grid-column: unset;
@@ -46,7 +42,7 @@ const CharactersSection = styled.section`
   }
 
   @media ${device.laptop} {
-    grid-template-columns: 2fr 1.6fr;
+    grid-template-columns: 2fr 2fr;
   }
 `
 
@@ -83,6 +79,7 @@ const Characters = () => {
         <div id='characterInfo'>
           <ErrorBoundary>
             <CharacterInfo id={selectedChar} />
+            <SearchCharacterByName />
           </ErrorBoundary>
         </div>
       </CharactersSection>

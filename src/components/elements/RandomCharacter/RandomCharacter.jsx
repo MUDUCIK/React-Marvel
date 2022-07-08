@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useMarvelService } from '../../services/MarvelService'
+
+import { useMarvelService } from '../../../services/MarvelService'
 
 import styled from 'styled-components'
 
-import { device } from '../../styles/styled-components/queries'
-import Button from '../controls/Button/Button'
-import Spinner from '../elements/Spinner/Spinner'
-import ErrorMessage from '../elements/ErrorMessage/ErrorMessage'
+import { device } from '../../../styles/styled-components/queries'
+import { Button, Link, StyledReactRouterLink } from '../../controls'
+import Spinner from '../../elements/Spinner/Spinner'
+import ErrorMessage from '../../elements/ErrorMessage/ErrorMessage'
 
-import decoration from '../../img/Decoration.png'
+import decoration from '../../../img/Decoration.png'
 
 const Wrapper = styled.div`
   display: flex;
@@ -116,6 +117,7 @@ const Wrapper = styled.div`
 
         p {
           margin-top: 5%;
+          padding-bottom: 20px;
         }
       }
     }
@@ -171,20 +173,29 @@ const Wrapper = styled.div`
   }
 `
 
-const RandomCharacter = (props) => {
+const RandomCharacter = () => {
   const [char, setChar] = useState({})
+  const [isCharLoading, setIsCharLoading] = useState(true)
 
-  const { loading, error, getCharacter, clearError } = useMarvelService()
+  const { loading, error, getCharacter, clearError, cancelRequest } = useMarvelService()
 
   useEffect(() => {
-    updateChar()
+    let isMounted = true
+    if (isMounted) updateChar()
+
+    return () => {
+      isMounted = false
+      cancelRequest()
+    }
   }, [])
 
   const onCharLoaded = (char) => {
+    setIsCharLoading(false)
     setChar(char)
   }
 
   const updateChar = () => {
+    setIsCharLoading(true)
     clearError()
     const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000)
 
@@ -194,6 +205,7 @@ const RandomCharacter = (props) => {
   const errorMessage = useMemo(() => (error ? <ErrorMessage /> : null), [error])
   const spinner = useMemo(() => (loading ? <Spinner /> : null), [loading])
   const content = !(loading || error) ? <View char={char} /> : null
+  const isLoadButtonDisabled = isCharLoading && !error
 
   return (
     <Wrapper id='randomCharacter'>
@@ -204,33 +216,34 @@ const RandomCharacter = (props) => {
       </div>
       <div className='item'>
         <img src={decoration} alt='' width={202} height={190} />
-        <h3>
-          Random character for today! Do you want to get to know him better?
-        </h3>
+        <h3>Random character for today! Do you want to get to know him better?</h3>
         <p>Or choose another one</p>
-        <Button onClick={updateChar} text='try it' />
+        <Button disabled={isLoadButtonDisabled} onClick={updateChar}>
+          try it
+        </Button>
       </div>
     </Wrapper>
   )
 }
 
 const View = ({ char }) => {
-  let { name, description, thumbnail, homepage, wiki } = char
+  let { name, description, thumbnail, homepage, id } = char
 
   if (description) {
-    if (description.length >= 228)
-      description = description.slice(0, 228) + '...'
+    if (description.length >= 228) description = description.slice(0, 228) + '...'
   } else description = 'Description not found'
 
   return (
     <>
-      <img src={thumbnail} width={180} height={180} alt={name} />
+      <img src={thumbnail} width={180} height={180} alt={name ?? 'loading...'} />
       <div>
         <h3>{name}</h3>
         <p>{description}</p>
         <div>
-          <Button target='_blank' href={homepage} text='homepage' />
-          <Button target='_blank' href={wiki} text='wiki' grey />
+          <StyledReactRouterLink to={`/characters/${id}`}>homepage</StyledReactRouterLink>
+          <Link target='_blank' href={homepage} grey>
+            wiki
+          </Link>
         </div>
       </div>
     </>

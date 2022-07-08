@@ -3,6 +3,8 @@ import { useCallback, useState } from 'react'
 export const useHttp = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const controller = new AbortController()
+  const signal = controller.signal
 
   const request = useCallback(
     async (
@@ -20,10 +22,10 @@ export const useHttp = () => {
           method,
           body,
           headers,
+          signal,
         })
 
-        if (!response.ok)
-          throw new Error(`Could not fetch ${url}, status: ${response.status}`)
+        if (!response.ok) throw new Error(`Could not fetch ${url}, status: ${response.status}`)
 
         const data = await response.json()
         setLoading(false)
@@ -40,10 +42,15 @@ export const useHttp = () => {
 
   const clearError = useCallback(() => setError(null), [])
 
+  const cancelRequest = useCallback(() => {
+    controller.abort()
+  }, [])
+
   return {
     loading,
     error,
     request,
     clearError,
+    cancelRequest,
   }
 }

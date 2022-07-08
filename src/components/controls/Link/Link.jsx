@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-const ButtonStyle = styled.button`
+const ButtonStyle = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,15 +24,6 @@ const ButtonStyle = styled.button`
   clip-path: polygon(15% 0, 100% 0, 100% 70%, 85% 100%, 0 100%, 0% 35%);
   transition: background-color 0.3s ease;
 
-  &:disabled {
-    background-color: var(--main-bg-grey);
-    cursor: not-allowed;
-
-    &:hover {
-      background-color: var(--main-bg-grey);
-    }
-  }
-
   &:hover {
     background-color: ${({ grey }) => (grey ? 'var(--main-hover-grey)' : 'var(--main-hover-red)')};
     color: var(--main-text-white);
@@ -44,10 +35,19 @@ const ButtonStyle = styled.button`
   }
 `
 
-const Button = ({ children, ...props }) => <ButtonStyle {...props}>{children}</ButtonStyle>
+const Link = ({ children, href, ...props }) => (
+  <ButtonStyle href={href} {...props}>
+    {children}
+  </ButtonStyle>
+)
 
-Button.propTypes = {
+Link.propTypes = {
   children: PropTypes.node.isRequired,
+  href: PropTypes.string.isRequired,
 }
 
-export default Button
+Link.defaultProps = {
+  href: '#',
+}
+
+export default Link

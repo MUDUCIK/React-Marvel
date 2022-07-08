@@ -1,7 +1,12 @@
+import { useContext, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useEffect, useMemo, useState } from 'react'
+
 import { useMarvelService } from '../../services/MarvelService'
+import {
+  CharactersContext,
+  CharactersUpdateContext,
+} from '../../context/CharactersContext/CharactersContext'
 
 import Character from '../Character/Character'
 import { device } from '../../styles/styled-components/queries'
@@ -38,33 +43,45 @@ const CharactersWrapper = styled.ul`
   }
 `
 
-const CharactersList = ({ onCharSelected, ...props }) => {
-  const [charactersData, setCharactersData] = useState([])
+const CharactersList = ({ onCharSelected }) => {
   const [newCharLoading, setNewCharLoading] = useState(false)
-  const [offset, setOffset] = useState(1500)
   const [maxReached, setMaxReached] = useState(true)
-  const { getAllCharacters, loading, error } = useMarvelService()
+  const { getAllCharacters, loading, error, cancelRequest } = useMarvelService()
+  const { characters, offset } = useContext(CharactersContext)
+  const { addCharacters, changeOffset } = useContext(CharactersUpdateContext)
 
   useEffect(() => {
-    loadCharacters(offset, true)
+    let isMounted = true
+    if (isMounted) initCharacters(0, true)
+
+    return () => {
+      isMounted = false
+      cancelRequest()
+    }
   }, [])
 
   const onCharactersLoaded = ({ data: { results } }) => {
     let maxReached = results.length < 9
 
-    setCharactersData((charactersData) => [...charactersData, ...results])
+    addCharacters(results)
     setNewCharLoading(false)
-    setOffset((offset) => offset + 9)
+    changeOffset(9)
     setMaxReached(maxReached)
   }
 
-  const loadCharacters = (offsetValue = offset, initial) => {
+  const initCharacters = (offsetValue = offset, initial) => {
     initial ? setNewCharLoading(false) : setNewCharLoading(true)
+    if (!characters.length) getAllCharacters(offsetValue).then(onCharactersLoaded)
+    if (characters.length) setMaxReached(false)
+  }
+
+  const loadCharacters = (offsetValue) => {
     getAllCharacters(offsetValue).then(onCharactersLoaded)
+    setNewCharLoading(true)
   }
 
   const charactersItems = useMemo(() => {
-    return charactersData.map(({ id, name, thumbnail }) => (
+    return characters.map(({ id, name, thumbnail }) => (
       <li key={id}>
         <Character
           id={id}
@@ -74,16 +91,10 @@ const CharactersList = ({ onCharSelected, ...props }) => {
         />
       </li>
     ))
-  }, [charactersData])
+  }, [characters])
 
-  const errorOccurred = useMemo(
-    () => (error ? <ErrorMessage /> : null),
-    [error]
-  )
-  const onLoading = useMemo(
-    () => (loading && !newCharLoading ? <Spinner /> : null),
-    [loading]
-  )
+  const errorOccurred = error ? <ErrorMessage /> : null
+  const onLoading = loading && !newCharLoading ? <Spinner /> : null
 
   return (
     <>

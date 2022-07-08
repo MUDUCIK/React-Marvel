@@ -8,11 +8,18 @@ import './styles/css/bootstrap-reboot.min.css'
 import './styles/css/fonts.css'
 import { GlobalStyles } from './styles/styled-components/GlobalStyles'
 
+import ComicsProvider from './context/ComicsContext/ComicsContext'
+import CharactersProvider from './context/CharactersContext/CharactersContext'
+
 render(
   <StrictMode>
     <BrowserRouter>
       <GlobalStyles />
-      <App />
+      <ComicsProvider>
+        <CharactersProvider>
+          <App />
+        </CharactersProvider>
+      </ComicsProvider>
     </BrowserRouter>
   </StrictMode>,
   document.getElementById('marvel')

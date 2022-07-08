@@ -1,7 +1,8 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const ButtonStyle = styled.button`
+const ButtonStyle = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,10 +45,15 @@ const ButtonStyle = styled.button`
   }
 `
 
-const Button = ({ children, ...props }) => <ButtonStyle {...props}>{children}</ButtonStyle>
+const StyledReactRouterLink = ({ children, to, ...props }) => (
+  <ButtonStyle to={to} {...props}>
+    {children}
+  </ButtonStyle>
+)
 
-Button.propTypes = {
+StyledReactRouterLink.propTypes = {
   children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
 }
 
-export default Button
+export default StyledReactRouterLink

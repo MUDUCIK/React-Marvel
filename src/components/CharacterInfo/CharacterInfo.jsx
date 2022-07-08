@@ -1,12 +1,13 @@
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
 import { Element } from 'react-scroll'
+
 import { useMarvelService } from '../../services/MarvelService'
 
 import { device } from '../../styles/styled-components/queries'
 
-import Button from '../controls/Button/Button'
+import { Link, StyledReactRouterLink } from '../controls'
 import Spinner from '../elements/Spinner/Spinner'
 import ErrorMessage from '../elements/ErrorMessage/ErrorMessage'
 import Skeleton from '../elements/Skeleton/Skeleton'
@@ -30,7 +31,7 @@ const CharacterHeader = styled.div`
   img {
     max-width: 100%;
     min-height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   div {
@@ -45,6 +46,7 @@ const CharacterHeader = styled.div`
     font-size: 1.5rem;
 
     span {
+      font-size: 1.125rem;
       font-weight: 700;
       text-transform: uppercase;
 
@@ -90,23 +92,13 @@ const CharacterBody = styled.div`
 
     li {
       display: flex;
-
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
-      a {
-        width: 100%;
-
-        padding: 5px 10px;
-
-        &:focus {
-          outline: 0.25rem solid var(--main-hover-red);
-        }
-      }
+      padding: 5px 10px;
     }
   }
 `
 
-const CharacterInfo = ({ id, ...props }) => {
+const CharacterInfo = ({ id }) => {
   const [characterData, setCharacterData] = useState(null)
 
   const { loading, error, getCharacter, clearError } = useMarvelService()
@@ -127,8 +119,7 @@ const CharacterInfo = ({ id, ...props }) => {
   const skeleton = loading || error || characterData ? null : <Skeleton />
   const onLoading = loading ? <Spinner /> : null
   const errorOccurred = error ? <ErrorMessage /> : null
-  const content =
-    !loading && !error && characterData ? <View char={characterData} /> : null
+  const content = !loading && !error && characterData ? <View char={characterData} /> : null
 
   return (
     <Element name='characterInfo'>
@@ -142,9 +133,7 @@ const CharacterInfo = ({ id, ...props }) => {
   )
 }
 
-const View = ({
-  char: { name, description, thumbnail, homepage, wiki, comics },
-}) => {
+const View = ({ char: { id, name, description, thumbnail, homepage, wiki, comics } }) => {
   if (!description) description = 'Description not found'
 
   let newComics = []
@@ -152,7 +141,6 @@ const View = ({
   for (let i = 0; i < comics.length; i++)
     if (i < 10)
       newComics.push({
-        url: comics[i].resourceURI,
         name: comics[i].name,
       })
     else break
@@ -164,8 +152,10 @@ const View = ({
         <div>
           <span>{name}</span>
           <div>
-            <Button href={homepage} text='homepage' />
-            <Button href={wiki} text='wiki' grey />
+            <StyledReactRouterLink to={`/characters/${id}`}>homepage</StyledReactRouterLink>
+            <Link href={homepage} target='_blank' grey>
+              wiki
+            </Link>
           </div>
         </div>
       </CharacterHeader>
@@ -175,9 +165,7 @@ const View = ({
         <ul>
           {comics.length > 0 ? null : 'There is no comics with this character!'}
           {newComics.map(({ name, url }, i) => (
-            <li key={i}>
-              <a href={url}>{name}</a>
-            </li>
+            <li key={i}>{name}</li>
           ))}
         </ul>
       </CharacterBody>
