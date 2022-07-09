@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
     }
 
     .character-image-wrapper {
-      height: 100%;
+      height: 180px;
       width: 180px;
 
       margin-left: 0;
@@ -45,7 +45,7 @@ export const Wrapper = styled.div`
       gap: 10px;
 
       width: 100%;
-      height: 100%;
+      height: 180px;
 
       margin-left: 1.875rem;
 
@@ -149,7 +149,7 @@ export const Wrapper = styled.div`
       &:first-child {
         text-align: center;
 
-        min-height: 380px;
+        min-height: 420px;
 
         div {
           margin: 0;

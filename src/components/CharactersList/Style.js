@@ -19,10 +19,13 @@ export const Style = styled.ul`
   }
 
   @media ${device.laptop} {
-    justify-content: center;
     gap: 1.875rem 1.5625rem;
 
     max-width: 100%;
+  }
+
+  @media (max-width: 1122px) {
+    justify-content: center;
   }
 
   @media ${device.tablet} {
