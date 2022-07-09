@@ -7,7 +7,7 @@ export const ComicsInfo = styled.div`
   min-height: 440px;
 
   .image {
-    height: auto;
+    height: 450px;
     width: 293px;
     object-fit: contain;
 

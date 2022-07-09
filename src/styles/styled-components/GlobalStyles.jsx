@@ -100,9 +100,7 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
-  //Skeleton
-
-  @media ${device.tablet} {
+  @media ${device.bootstrapLarge} {
     html {
       font-size: 14px;
     }

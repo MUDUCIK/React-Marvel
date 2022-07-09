@@ -3,31 +3,34 @@ import styled from 'styled-components'
 import { device } from '../../styles/styled-components'
 
 export const CharactersSection = styled.section`
-  display: grid;
-  grid-template-columns: 2fr 1.3fr;
+  display: flex;
+  justify-content: space-between;
   gap: 1.25rem;
 
   margin: clamp(1.25rem, 5vh, 3.125rem) 0 clamp(1.25rem, 5vh, 2.8125rem);
 
   #characterInfo {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 1.875rem;
 
-    grid-column: 2;
-    grid-row: 1;
+    max-width: 440px;
   }
 
-  @media ${device.tablet} {
-    grid-template-columns: unset !important;
-    #characterInfo {
-      order: -1;
-      grid-column: unset;
-      grid-row: unset;
+  @media ${device.bootstrapExtraLarge} {
+    .characters-list {
+      max-width: 420px;
     }
   }
 
-  @media ${device.laptop} {
-    grid-template-columns: 2fr 2fr;
+  @media ${device.bootstrapLarge} {
+    flex-direction: column-reverse;
+    align-items: center;
+
+    #characterInfo {
+      width: 100%;
+      max-width: unset;
+    }
   }
 `

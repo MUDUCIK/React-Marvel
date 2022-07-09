@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { device } from '../../styles/styled-components/queries'
+import { device } from '../../styles/styled-components'
 
 export const Style = styled.div`
   padding-bottom: 3.125rem;
@@ -10,6 +10,13 @@ export const Style = styled.div`
     align-items: flex-start;
 
     margin-top: 3.125rem;
+  }
+
+  .image-wrapper {
+    height: 308px;
+    width: 300px;
+
+    object-fit: cover;
   }
 
   .back-to-all {

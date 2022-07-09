@@ -7,6 +7,7 @@ import { useMarvelService } from '../../services/MarvelService'
 import { ErrorBoundary, ErrorMessage, NewsBoard, Spinner } from '../../components/elements'
 import { Style } from './Style'
 import { ComicsInfo } from './ComicsInfo'
+import ImageWithLoader from '../../components/elements/ImageWithLoader/ImageWithLoader'
 
 function AboutComics() {
   const { id } = useParams()
@@ -51,7 +52,9 @@ function AboutComics() {
 function View({ title, description, image, price, pageCount, language }) {
   return (
     <>
-      <img className='image' src={image} alt={title} />
+      <div className='image-wrapper'>
+        <ImageWithLoader className='image' src={image} alt={title} />
+      </div>
       <div className='description'>
         <h4 className='title'>{title}</h4>
         <p className='about'>{description}</p>

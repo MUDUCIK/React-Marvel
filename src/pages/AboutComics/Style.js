@@ -12,6 +12,11 @@ export const Style = styled.div`
     margin-top: 3.125rem;
   }
 
+  .image-wrapper {
+    height: 450px;
+    width: 293px;
+  }
+
   .back-to-all {
     min-width: 96px;
 
@@ -39,6 +44,16 @@ export const Style = styled.div`
       flex-direction: column-reverse;
       align-items: center;
       gap: 30px;
+    }
+
+    .image-wrapper {
+      min-height: 450px;
+      height: auto;
+      width: auto;
+
+      img {
+        object-fit: cover;
+      }
     }
 
     .back-to-all {

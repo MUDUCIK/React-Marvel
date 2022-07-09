@@ -7,6 +7,7 @@ import {
   CharactersUpdateContext,
 } from '../../context/CharactersContext/CharactersContext'
 
+import { Grid } from './Grid'
 import { Style } from './Style'
 import Character from '../Character/Character'
 import Spinner from '../elements/Spinner/Spinner'
@@ -67,10 +68,10 @@ const CharactersList = ({ onCharSelected }) => {
   const onLoading = loading && !newCharLoading ? <Spinner /> : null
 
   return (
-    <>
+    <Style>
       {onLoading}
       {errorOccurred}
-      {!error && <Style>{charactersItems}</Style>}
+      {!error && <Grid className='characters-list'>{charactersItems}</Grid>}
       {!maxReached && (
         <ButtonBigger
           disabled={newCharLoading}
@@ -79,7 +80,7 @@ const CharactersList = ({ onCharSelected }) => {
           className='More'
         />
       )}
-    </>
+    </Style>
   )
 }
 

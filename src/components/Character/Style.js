@@ -48,7 +48,7 @@ export const Style = styled.button`
     pointer-events: none;
   }
 
-  div {
+  .name {
     margin: 0 0.9375em 0 0.9375em;
 
     text-transform: uppercase;

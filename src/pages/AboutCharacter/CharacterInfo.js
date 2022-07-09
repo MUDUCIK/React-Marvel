@@ -7,7 +7,7 @@ export const CharacterInfo = styled.div`
   min-height: 440px;
 
   .image {
-    height: auto;
+    height: 100%;
     width: 293px;
     object-fit: contain;
 

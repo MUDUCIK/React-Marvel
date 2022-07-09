@@ -1,13 +1,16 @@
+import { useState } from 'react'
 import { usePalette } from 'react-palette'
 import { Link } from 'react-scroll'
 
 import { Style } from './Style'
+import ImageWithLoader from '../elements/ImageWithLoader/ImageWithLoader'
 
-const Character = ({ img, name, id, onCharSelected, ...props }) => {
+const Character = ({ img, name, id, onCharSelected }) => {
+  const [loaded, setLoaded] = useState(false)
   const {
-      data: { darkVibrant },
-    } = usePalette(img),
-    smooth = document.documentElement.clientWidth <= 768
+    data: { darkVibrant },
+  } = usePalette(img)
+  const smooth = document.documentElement.clientWidth <= 768
 
   const keyPressHandler = (e) => {
     const { code } = e
@@ -24,8 +27,14 @@ const Character = ({ img, name, id, onCharSelected, ...props }) => {
         duration={500}
         onClick={() => onCharSelected(id)}
       >
-        <img src={img} width={200} height={200} alt={name} />
-        <div>
+        <div
+          style={{
+            height: '200px',
+          }}
+        >
+          <ImageWithLoader src={img} alt={name} />
+        </div>
+        <div className='name'>
           <span>{name}</span>
         </div>
       </Link>

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { useMarvelService } from '../../services/MarvelService'
@@ -49,18 +49,22 @@ function ComicsList(props) {
   const onLoading = loading && !newComicsLoading && <Spinner />
   const errorOccurred = error && <ErrorMessage />
   const content = !error
+  const comicsItems = useMemo(
+    () =>
+      comics.map((comics) => (
+        <Link key={comics.id} to={`/comics/${comics.id}`}>
+          <ComicsItem {...comics} />
+        </Link>
+      )),
+    [comics]
+  )
 
   return (
     <>
       <Grid>
         {errorOccurred}
         {onLoading}
-        {content &&
-          comics.map((comics) => (
-            <Link key={comics.id} to={`/comics/${comics.id}`}>
-              <ComicsItem {...comics} />
-            </Link>
-          ))}
+        {content && comicsItems}
       </Grid>
       {!maxReached && (
         <ButtonBigger

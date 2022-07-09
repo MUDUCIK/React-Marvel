@@ -1,9 +1,12 @@
 import styled from 'styled-components'
+import { device } from '../../styles/styled-components'
 
 export const Style = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  width: 230px;
 
   cursor: pointer;
 
@@ -14,9 +17,8 @@ export const Style = styled.div`
   }
 
   .comics-image {
-    height: auto;
-    min-height: 360px;
-    max-width: 300px;
+    height: 350px;
+    max-width: 100%;
     object-fit: contain;
 
     margin-bottom: auto;
@@ -37,5 +39,10 @@ export const Style = styled.div`
     line-height: 16px;
 
     color: ${({ theme }) => theme.colors.mainBgGrey};
+  }
+
+  @media ${device.bootstrapLarge} {
+    .comics-image {
+    }
   }
 `
