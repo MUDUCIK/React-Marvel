@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { device } from '../../styles/styled-components/queries'
+import { device } from '../../styles/styled-components'
 
 export const ComicsInfo = styled.div`
   display: flex;
@@ -47,7 +47,7 @@ export const ComicsInfo = styled.div`
   .price {
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--main-red-color);
+    color: ${({ theme }) => theme.colors.mainRedColor};
   }
 
   @media ${device.tablet} {

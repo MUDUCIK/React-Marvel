@@ -10,11 +10,11 @@ export const Style = styled.div`
 
   padding: 0 25px 0 45px;
 
-  background-color: var(--main-bg-color);
+  background-color: ${({ theme }) => theme.colors.mainBgColor};
 
   font-weight: bold;
   font-size: 1.5rem;
-  color: var(--main-text-white);
+  color: ${({ theme }) => theme.colors.mainTextWhite};
 
   img {
     height: auto;

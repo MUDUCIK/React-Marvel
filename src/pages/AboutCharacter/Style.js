@@ -23,7 +23,7 @@ export const Style = styled.div`
     transition: color 0.3s ease;
 
     &:hover {
-      color: var(--main-hover-red);
+      color: ${({ theme }) => theme.colors.mainHoverRed};
     }
   }
 
@@ -44,11 +44,11 @@ export const Style = styled.div`
     .back-to-all {
       padding: 10px 20px;
 
-      color: var(--main-text-white);
-      background-color: var(--main-red-color);
+      color: ${({ theme }) => theme.colors.mainTextWhite};
+      background-color: ${({ theme }) => theme.colors.mainRedColor};
 
       &:hover {
-        color: var(--main-text-white);
+        color: ${({ theme }) => theme.colors.mainTextWhite};
       }
     }
   }

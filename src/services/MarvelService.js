@@ -1,4 +1,5 @@
 import { useHttp } from '../hooks/http.hook'
+
 import { initialOffset } from '../helpers'
 
 export const useMarvelService = () => {
@@ -23,11 +24,16 @@ export const useMarvelService = () => {
       ? char.description
       : 'No description'
 
+    const thumbnail =
+      char.thumbnail.path === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'
+        ? 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available/standard_xlarge.jpg'
+        : char.thumbnail.path + '.' + char.thumbnail.extension
+
     return {
       id: char.id,
       name: char.name,
       description,
-      thumbnail: char.thumbnail.path + '.' + char.thumbnail.extension,
+      thumbnail,
       homepage: char.urls[0].url,
       wiki: char.urls[1].url,
       comics: char.comics.items,

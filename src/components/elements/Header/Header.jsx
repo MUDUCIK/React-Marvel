@@ -1,62 +1,12 @@
 import { Link, NavLink } from 'react-router-dom'
-import styled from 'styled-components'
-import { device } from '../../../styles/styled-components/queries'
 
-const HeaderStyle = styled.header`
-  width: 100%;
-
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-
-    height: clamp(80px, 26vh, 130px);
-
-    font-weight: 700;
-
-    div {
-      font-size: 1.75rem;
-
-      p > a {
-        padding: 0.5em 0;
-
-        color: var(--main-red-color);
-      }
-    }
-
-    div + div {
-      font-size: 1.5rem;
-
-      a {
-        padding: 0.5em;
-
-        &:focus {
-          color: var(--main-red-color);
-        }
-
-        &:last-child {
-          padding-right: 0;
-        }
-      }
-    }
-  }
-
-  @media ${device.tablet} {
-    nav {
-      flex-direction: column;
-      justify-content: center;
-
-      gap: 0.625rem 0;
-    }
-  }
-`
+import { Style } from './Style'
 
 const Header = () => {
   const setActive = ({ isActive }) => (isActive ? 'active-link' : '')
 
   return (
-    <HeaderStyle id='header'>
+    <Style id='header'>
       <nav>
         <div>
           <p>
@@ -73,7 +23,7 @@ const Header = () => {
           </NavLink>
         </div>
       </nav>
-    </HeaderStyle>
+    </Style>
   )
 }
 

@@ -9,13 +9,13 @@ export const Style = styled.div`
 
   &:hover {
     .comics-name {
-      color: var(--main-hover-red);
+      color: ${({ theme }) => theme.colors.mainHoverRed};
     }
   }
 
   .comics-image {
     height: auto;
-    min-height: 346px;
+    min-height: 360px;
     max-width: 300px;
     object-fit: contain;
 
@@ -36,6 +36,6 @@ export const Style = styled.div`
     font-weight: bold;
     line-height: 16px;
 
-    color: var(--bs-gray-600);
+    color: ${({ theme }) => theme.colors.mainBgGrey};
   }
 `

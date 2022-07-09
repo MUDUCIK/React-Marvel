@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { device } from '../../styles/styled-components/queries'
+import { device } from '../../styles/styled-components'
 
 export const CharacterInfo = styled.div`
   display: flex;
@@ -49,12 +49,15 @@ export const CharacterInfo = styled.div`
     .description {
       align-items: center;
       margin-left: 0;
+      margin-bottom: auto;
       text-align: center;
     }
 
     .image {
       width: 100%;
       max-width: 300px;
+
+      margin-bottom: 0;
     }
   }
 `

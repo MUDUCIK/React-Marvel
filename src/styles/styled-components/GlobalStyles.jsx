@@ -3,17 +3,6 @@ import { createGlobalStyle } from 'styled-components'
 import { device } from './queries'
 
 export const GlobalStyles = createGlobalStyle`
-  :root {
-    --main-red-color: #9F0013;
-    --main-hover-red: #950018;
-    --main-success-color: #03710E;
-    --main-bg-color: #232222;
-    --main-bg-grey: #5C5C5C;
-    --main-hover-grey: #4e4e4e;
-    --main-text-black: #000000;
-    --main-text-white: #ffffff;
-  }
-
   html {
     font-size: 16px;
   }
@@ -33,7 +22,7 @@ export const GlobalStyles = createGlobalStyle`
 
   a {
     text-decoration: none;
-    color: var(--main-text-black);
+    color: ${({ theme }) => theme.colors.mainTextBlack};
   }
 
   .page {
@@ -56,12 +45,12 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .active-link {
-    color: var(--main-red-color);
+    color: ${({ theme }) => theme.colors.mainRedColor};
   }
 
 
   //Skeleton
-  .char__select {
+  .char-select {
     text-align: center;
     margin-bottom: 1.25rem;
   }

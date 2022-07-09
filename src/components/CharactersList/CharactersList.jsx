@@ -1,5 +1,4 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
 import { useMarvelService } from '../../services/MarvelService'
@@ -8,40 +7,11 @@ import {
   CharactersUpdateContext,
 } from '../../context/CharactersContext/CharactersContext'
 
+import { Style } from './Style'
 import Character from '../Character/Character'
-import { device } from '../../styles/styled-components/queries'
 import Spinner from '../elements/Spinner/Spinner'
 import ErrorMessage from '../elements/ErrorMessage/ErrorMessage'
 import ButtonBigger from '../controls/ButtonBigger/ButtonBigger'
-
-const CharactersWrapper = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.875rem 20px;
-  justify-content: center;
-
-  max-width: 650px;
-
-  padding: 0;
-  margin: 0;
-
-  list-style-type: none;
-
-  li {
-    display: flex;
-  }
-
-  @media ${device.laptop} {
-    justify-content: center;
-    gap: 1.875rem 1.5625rem;
-
-    max-width: 100%;
-  }
-
-  @media ${device.tablet} {
-    margin-top: clamp(20px, 10vh, 50px);
-  }
-`
 
 const CharactersList = ({ onCharSelected }) => {
   const [newCharLoading, setNewCharLoading] = useState(false)
@@ -100,7 +70,7 @@ const CharactersList = ({ onCharSelected }) => {
     <>
       {onLoading}
       {errorOccurred}
-      {!error && <CharactersWrapper>{charactersItems}</CharactersWrapper>}
+      {!error && <Style>{charactersItems}</Style>}
       {!maxReached && (
         <ButtonBigger
           disabled={newCharLoading}

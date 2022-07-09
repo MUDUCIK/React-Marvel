@@ -1,102 +1,16 @@
 import { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Element } from 'react-scroll'
 
 import { useMarvelService } from '../../services/MarvelService'
 
-import { device } from '../../styles/styled-components/queries'
-
 import { Link, StyledReactRouterLink } from '../controls'
 import Spinner from '../elements/Spinner/Spinner'
 import ErrorMessage from '../elements/ErrorMessage/ErrorMessage'
 import Skeleton from '../elements/Skeleton/Skeleton'
-
-const CharacterInfoWrapper = styled.div`
-  padding: 1.5625rem;
-
-  min-height: 750px;
-
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  background: #fff;
-
-  @media ${device.tablet} {
-    min-height: 695px;
-  }
-`
-
-const CharacterHeader = styled.div`
-  display: flex;
-
-  img {
-    max-width: 100%;
-    min-height: 100%;
-    object-fit: contain;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    width: 100%;
-
-    margin-left: 1.5625rem;
-
-    font-size: 1.5rem;
-
-    span {
-      font-size: 1.125rem;
-      font-weight: 700;
-      text-transform: uppercase;
-
-      padding: 0 0 0.625rem;
-    }
-
-    div {
-      margin: 0;
-
-      min-width: 100px;
-
-      gap: 0.625em 0;
-    }
-  }
-`
-
-const CharacterBody = styled.div`
-  margin-top: 0.9375rem;
-
-  p {
-    font-size: 14px;
-    line-height: 1.2;
-  }
-
-  span {
-    display: block;
-
-    margin-top: 0.625em;
-
-    font-weight: 700;
-    font-size: 1.125rem;
-  }
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem 0;
-
-    list-style-type: none;
-    padding: 0;
-
-    margin-top: 0.625rem;
-
-    li {
-      display: flex;
-      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-      padding: 5px 10px;
-    }
-  }
-`
+import { CharacterBody } from './CharacterBody'
+import { CharacterInfoWrapper } from './CharacterInfoWrapper'
+import { CharacterHeader } from './CharacterHeader'
 
 const CharacterInfo = ({ id }) => {
   const [characterData, setCharacterData] = useState(null)

@@ -4,6 +4,7 @@ import { CharactersContext } from '../../../context/CharactersContext/Characters
 
 import { Style } from './Style'
 import { Button, StyledReactRouterLink } from '../../controls'
+import { SkeletonForList } from '../index'
 
 function SearchCharacterByName() {
   const [search, setSearch] = useState('')
@@ -53,13 +54,13 @@ function SearchCharacterByName() {
     setSearch(value)
   }
 
-  const color = error || validationError ? 'var(--main-red-color)' : 'var(--main-success-color)'
+  const skeleton = !error && !validationError && !success && <SkeletonForList />
   const showErrorBlock = error || validationError
   const results = useMemo(
     () =>
       foundCharacters.map(({ id, name }) => (
         <li key={id} className='results__item'>
-          <p className='results__text text'>Visit '{name}' page?</p>
+          <p className='results__text text'>{name}</p>
           <StyledReactRouterLink to={`/characters/${id}`} grey={+true}>
             Home page
           </StyledReactRouterLink>
@@ -69,7 +70,7 @@ function SearchCharacterByName() {
   )
 
   return (
-    <Style color={color}>
+    <Style error={error || validationError}>
       <p className='name'>Or find a character by name:</p>
       <form className='search-form' onSubmit={submitHandler}>
         <input type='text' placeholder='Enter name' onChange={handleValue} value={search} />
@@ -77,6 +78,7 @@ function SearchCharacterByName() {
           find
         </Button>
       </form>
+      {skeleton}
       {showErrorBlock && (
         <div className='result text'>
           {validationError && <p className='result__text text'>This field is required</p>}

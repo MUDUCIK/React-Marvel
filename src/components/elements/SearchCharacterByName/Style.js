@@ -5,7 +5,7 @@ export const Style = styled.div`
   flex-direction: column;
   gap: 15px;
 
-  max-height: 248px;
+  height: 350px;
 
   padding: 25px;
 
@@ -40,25 +40,26 @@ export const Style = styled.div`
       }
 
       ::placeholder {
-        color: var(--main-bg-grey);
+        color: ${({ theme }) => theme.colors.mainBgGrey};
         opacity: 1;
         font-size: 14px;
       }
 
       :-ms-input-placeholder {
-        color: var(--main-bg-grey);
+        color: ${({ theme }) => theme.colors.mainBgGrey};
         font-size: 14px;
       }
 
       ::-ms-input-placeholder {
-        color: var(--main-bg-grey);
+        color: ${({ theme }) => theme.colors.mainBgGrey};
         font-size: 14px;
       }
     }
   }
 
   .text {
-    color: ${({ color }) => (color ? color : '#000')};
+    color: ${({ error, theme }) =>
+      error ? theme.colors.mainRedColor : theme.colors.mainSuccessColor};
     font-weight: 700;
     font-size: 18px;
   }
@@ -85,7 +86,7 @@ export const Style = styled.div`
     }
 
     ::-webkit-scrollbar-thumb {
-      background-color: var(--main-red-color);
+      background-color: ${({ theme }) => theme.colors.mainRedColor};
       border-radius: 1rem;
     }
 

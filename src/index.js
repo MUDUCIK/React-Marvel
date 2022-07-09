@@ -6,7 +6,7 @@ import App from './App'
 
 import './styles/css/bootstrap-reboot.min.css'
 import './styles/css/fonts.css'
-import { GlobalStyles } from './styles/styled-components/GlobalStyles'
+import { GlobalStyles, Theme } from './styles/styled-components'
 
 import ComicsProvider from './context/ComicsContext/ComicsContext'
 import CharactersProvider from './context/CharactersContext/CharactersContext'
@@ -14,12 +14,14 @@ import CharactersProvider from './context/CharactersContext/CharactersContext'
 render(
   <StrictMode>
     <BrowserRouter>
-      <GlobalStyles />
-      <ComicsProvider>
-        <CharactersProvider>
-          <App />
-        </CharactersProvider>
-      </ComicsProvider>
+      <Theme>
+        <GlobalStyles />
+        <ComicsProvider>
+          <CharactersProvider>
+            <App />
+          </CharactersProvider>
+        </ComicsProvider>
+      </Theme>
     </BrowserRouter>
   </StrictMode>,
   document.getElementById('marvel')
