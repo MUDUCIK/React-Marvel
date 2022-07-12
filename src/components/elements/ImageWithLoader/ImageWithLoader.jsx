@@ -28,7 +28,7 @@ function ImageWithLoader({ src, alt, ...props }) {
 }
 
 ImageWithLoader.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.oneOfType([PropTypes.string.isRequired, PropTypes.oneOf([undefined]).isRequired]),
   alt: PropTypes.string,
 }
 

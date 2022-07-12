@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { Header, Spinner } from './components/elements'
+import { Header } from './components/elements'
 
 const AboutComics = lazy(() => import('./pages/AboutComics/AboutComics'))
 const Characters = lazy(() => import('./pages/Characters/Characters'))
@@ -14,7 +14,7 @@ function App() {
       <main>
         <div className='container'>
           <Header />
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={null}>
             <Routes>
               <Route path='/' element={<Navigate to='characters' />} />
               <Route path='characters'>

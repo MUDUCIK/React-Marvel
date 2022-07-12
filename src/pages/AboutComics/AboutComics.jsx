@@ -13,9 +13,11 @@ function AboutComics() {
   const { id } = useParams()
   const { error, loading, getComics } = useMarvelService()
   const [comicsData, setComicsData] = useState({})
+  const [firstLoading, setFirstLoading] = useState(true)
 
   useEffect(() => {
     getComics(id).then((comicsData) => setComicsData(comicsData))
+    setFirstLoading(false)
   }, [])
 
   const onLoading = loading && (
@@ -23,7 +25,7 @@ function AboutComics() {
       <Spinner />
     </div>
   )
-  const content = !onLoading && !error && <View {...comicsData} />
+  const content = !loading && !firstLoading && !error && <View {...comicsData} />
   const errorOccurred = error && <ErrorMessage />
 
   return (

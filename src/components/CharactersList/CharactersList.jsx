@@ -17,7 +17,7 @@ import ButtonBigger from '../controls/ButtonBigger/ButtonBigger'
 const CharactersList = ({ onCharSelected }) => {
   const [newCharLoading, setNewCharLoading] = useState(false)
   const [maxReached, setMaxReached] = useState(true)
-  const { getAllCharacters, loading, error, cancelRequest } = useMarvelService()
+  const { getAllCharacters, loading, error, cancelRequest, clearError } = useMarvelService()
   const { characters, offset } = useContext(CharactersContext)
   const { addCharacters, changeOffset } = useContext(CharactersUpdateContext)
 
@@ -49,6 +49,7 @@ const CharactersList = ({ onCharSelected }) => {
   const loadCharacters = (offsetValue) => {
     getAllCharacters(offsetValue).then(onCharactersLoaded)
     setNewCharLoading(true)
+    clearError()
   }
 
   const charactersItems = useMemo(() => {
