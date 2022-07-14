@@ -68,7 +68,7 @@ export const Wrapper = styled.div`
         gap: 0 10px;
 
         max-height: 44px;
-        max-width: 250px;
+        max-width: 15.625rem;
 
         margin-left: 0;
       }
