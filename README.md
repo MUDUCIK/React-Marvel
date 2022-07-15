@@ -60,11 +60,6 @@ You need to wait a bit while the page is loading.
 
 ## Screenshots
 
-<p align="center">
-<img style="object-fit:contain;"
-     src="https://user-images.githubusercontent.com/64277973/179244234-3c544187-a242-4c8a-a95e-c367d0c9bf66.png"
-     width="800"
-/>
 </p>
 
 <p align="center">
@@ -134,12 +129,10 @@ Open in a browser
 
 ## Lessons Learned
 
-I learned how to create [SPA](https://en.wikipedia.org/wiki/Single-page_application) with
-the [React Router](https://reactrouter.com/) and how to create styles with
-the [Styled Components](https://styled-components.com/) libraries
+In this project, I learned how to work with an API (in this case is [Marvel API](https://developer.marvel.com/)), do pagination and change page metadata.
 
 <br/>
 
 ## Additional
 
-This project is just a test task. This is my first React project that I created a week after I started learning
+Sometimes app can get the same data from api request on the comics page, i don't know why this happens, but i checked it many times and really can't realize the problem. Method the same as on the characters page, even context the same, so i think - it's API problem.
