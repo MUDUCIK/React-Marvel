@@ -30,10 +30,6 @@
 <img src="https://img.shields.io/badge/Prop%20Types-15.8.1-A32DED?style=for-the-badge">
 </a>
 
-<a href="https://www.npmjs.com/package/react-palette" target="_blank">
-<img src="https://img.shields.io/badge/React%20Palette-1.0.2-77D6A1?style=for-the-badge">
-</a>
-
 <a href="https://prettier.io/" target="_blank">
 <img src="https://img.shields.io/badge/Prettier-2.6.2-F7B93E?style=for-the-badge&logo=Prettier">
 </a>
