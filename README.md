@@ -79,6 +79,18 @@ You need to wait a bit while the page is loading.
 />
 </p>
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/64277973/179279024-60eb8b3d-eb70-4617-b912-aacd0207f472.png"
+     width="800"
+/>
+</p>
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/64277973/179279037-edc24bed-f283-4c24-b7a8-bd54d576a13f.png"
+     width="800"
+/>
+</p>
+
 ## System Requirements
 
 - [git](https://git-scm.com/)
