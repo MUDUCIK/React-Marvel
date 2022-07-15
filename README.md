@@ -129,10 +129,10 @@ Open in a browser
 
 ## Lessons Learned
 
-In this project, I learned how to work with an API (in this case is [Marvel API](https://developer.marvel.com/)), do pagination and change page metadata.
+In this project, I learned how to work with an API (in this case is the [Marvel API](https://developer.marvel.com/)), do pagination and change page metadata.
 
 <br/>
 
 ## Additional
 
-Sometimes app can get the same data from api request on the comics page, i don't know why this happens, but i checked it many times and really can't realize the problem. Method the same as on the characters page, even context the same, so i think - it's API problem.
+Sometimes the app can get the same data from the api request on the comics page, i don't know why this happens, but i checked it multiple times and really can't realize the problem. Method is the same as on the characters page and even the context is the same, so i think - it's API's problem.
