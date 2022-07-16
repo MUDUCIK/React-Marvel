@@ -47,7 +47,7 @@
 
 </p>
 
-This app interacts with the Marvel Developer Portal API to get characters, comics and information about them.
+This app interacts with the [Marvel Developer Portal](https://developer.marvel.com/) API to get characters, comics and information about them.
 
 <br/>
 
