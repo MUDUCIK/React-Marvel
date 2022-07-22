@@ -1,6 +1,6 @@
 # :superhero: React Marvel
 
-<div>
+<div align="left">
 
 <a href="https://reactjs.org" target="_blank">
 <img src="https://img.shields.io/badge/React-17.0.2-61DAFB?style=for-the-badge&logo=React">
