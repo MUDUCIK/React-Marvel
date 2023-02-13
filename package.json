@@ -2,7 +2,7 @@
   "name": "react-marvel",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://{github-username}.github.io/{repo-name}",
+  "homepage": "http://{github-username}.github.io/React-Marvel",
   "engines": {
     "npm": "6.x"
   },
