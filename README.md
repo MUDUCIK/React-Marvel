@@ -53,8 +53,7 @@ This app interacts with the [Marvel Developer Portal](https://developer.marvel.c
 
 ## Demo
 
-[https://react-marvel-demonstration.herokuapp.com/characters](https://react-marvel-demonstration.herokuapp.com/characters)
-You need to wait a bit while the page is loading.
+[https://mudaston.github.io/React-Marvel](https://mudaston.github.io/React-Marvel/)
 
 <br/>
 
